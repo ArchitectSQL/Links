@@ -1,0 +1,24 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Web4pro\Links\Block\Adminhtml\Grid\Edit" name="add_row" />
+        </referenceContainer>
+        <referenceContainer name="left">
+            <block class="Web4pro\Links\Block\Adminhtml\Grid\Edit\Tabs" name="web4pro_links_grid_edit_tabs">
+                <block class="Web4pro\Links\Block\Adminhtml\Grid\Edit\Tab\Main" name="edit_tab_main"/>
+                <block class="Web4pro\Links\Block\Adminhtml\Grid\Edit\Tab\Conditions" name="edit_tab_conditions"/>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">main</argument>
+                    <argument name="block" xsi:type="string">edit_tab_main</argument>
+                </action>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">conditions</argument>
+                    <argument name="block" xsi:type="string">edit_tab_conditions</argument>
+                </action>
+            </block>
+        </referenceContainer>
+    </body>
+</page>
+
+
+<!-- layout="admin-2columns-left" -->

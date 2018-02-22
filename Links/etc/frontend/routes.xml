@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Web4pro Links routes xml
+ * @category  Web4pro
+ * @package   Webkul_Grid
+ * @author    Web4pro
+ * @copyright Copyright (c) 2010-2017 Web4pro Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="standard">
+        <route id="grid" frontName="grid">
+            <module name="Web4pro_Links" />
+        </route>
+    </router>
+</config>
