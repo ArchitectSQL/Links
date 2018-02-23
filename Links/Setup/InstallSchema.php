@@ -33,17 +33,13 @@ class InstallSchema implements InstallSchemaInterface
 
         $installer->startSetup();
 
-        /*
-         * Create table 'wk_grid_records'
-         */
-
         $table = $installer->getConnection()->newTable(
-            $installer->getTable('wk_grid_records')
+            $installer->getTable('web4pro_links')
         )->addColumn(
             'entity_id',
             \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
             null,
-            ['identity' => true, 'nullable' => false, 'primary' => true],
+            ['identity' => true, 'nullable' => false, 'primary' => true, ],
             'Links Record Id'
         )->addColumn(
             'titlelink',
@@ -63,38 +59,57 @@ class InstallSchema implements InstallSchemaInterface
             null,
             [],
             'Sort Order'
-        )/*->addColumn(
-            'publish_date',
-            \Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
-            null,
-            [],
-            'Publish Date'
-        )*/->addColumn(
+        )->addColumn(
             'is_active',
             \Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
             null,
             [],
             'Active Status'
-        )/*->addColumn(
-            'created_at',
-            \Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
-            null,
-            [
-                'nullable' => false,
-                'default' => \Magento\Framework\DB\Ddl\Table::TIMESTAMP_INIT,
-            ],
-            'Creation Time'
-        )->addColumn(
-            'update_time',
-            \Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
-            null,
-            [],
-            'Modification Time'
-        )*/->setComment(
+        )->setComment(
             'Row Data Table'
         );
-
         $installer->getConnection()->createTable($table);
+
+
+            $table = $installer->getConnection()->newTable(
+                $installer->getTable('links_cms_pages')
+            )->addColumn('id',
+                \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                null,
+                [
+                    'identity' => true,
+                    'nullable' => false,
+                    'primary' => true,
+                    'unsigned' => true,
+                ],
+                'id'
+            )->addColumn(
+                'link_id',
+                \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                null,
+                ['nullable' => false],
+                'link_id'
+            )->addColumn(
+                'page_id',
+                \Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
+                null,
+                ['nullable' => false],
+                'page_id'
+            )->addForeignKey(
+                $installer->getFkName('links_cms_pages','link_id','web4pro_links','entity_id'),
+                'link_id',
+                $installer->getTable('web4pro_links'),
+                'entity_id',
+                \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
+            )->addForeignKey(
+                $installer->getFkName('links_cms_pages','page_id','cms_page','page_id'),
+                'page_id',
+                $installer->getTable('cms_page'),
+                'page_id',
+                \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
+            )->setComment('Links Pages');
+            $installer->getConnection()->createTable($table);
+
         $installer->endSetup();
     }
 }

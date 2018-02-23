@@ -5,7 +5,7 @@
 
     <virtualType name="Web4pro\Links\Model\ResourceModel\Grid\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
         <arguments>
-            <argument name="mainTable" xsi:type="string">wk_grid_records</argument>
+            <argument name="mainTable" xsi:type="string">web4pro_links</argument>
             <argument name="resourceModel" xsi:type="string">Web4pro\Links\Model\ResourceModel\Grid</argument>
         </arguments>
     </virtualType>

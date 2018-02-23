@@ -17,19 +17,19 @@ class Grid extends \Magento\Framework\Model\AbstractModel implements GridInterfa
     /**
      * CMS page cache tag.
      */
-    const CACHE_TAG = 'wk_grid_records';
+    const CACHE_TAG = 'web4pro_links';
 
     /**
      * @var string
      */
-    protected $_cacheTag = 'wk_grid_records';
+    protected $_cacheTag = 'web4pro_links';
 
     /**
      * Prefix of model events names.
      *
      * @var string
      */
-    protected $_eventPrefix = 'wk_grid_records';
+    protected $_eventPrefix = 'web4pro_links';
 
     /**
      * Initialize resource model.

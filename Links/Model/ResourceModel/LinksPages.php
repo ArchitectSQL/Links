@@ -12,12 +12,12 @@ namespace Web4pro\Links\Model\ResourceModel;
 /**
  * Links Links mysql resource.
  */
-class Grid extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
+class LinksPages extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 {
     /**
      * @var string
      */
-    protected $_idFieldName = 'entity_id';
+    protected $_idFieldName = 'id';
     /**
      * @var \Magento\Framework\Stdlib\DateTime\DateTime
      */
@@ -44,6 +44,6 @@ class Grid extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
      */
     protected function _construct()
     {
-        $this->_init('web4pro_links', 'entity_id');
+        $this->_init('links_cms_pages', 'id');
     }
 }

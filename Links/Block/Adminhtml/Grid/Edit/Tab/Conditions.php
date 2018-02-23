@@ -54,6 +54,7 @@ class Conditions extends Extended implements TabInterface
         $this->setId('cmsPageGrid');
         $this->setDefaultSort('identifier');
         $this->setDefaultDir('ASC');
+        //var_dump($this->_cmsPage);exit();
     }
 
     /**
@@ -78,6 +79,19 @@ class Conditions extends Extended implements TabInterface
      */
     protected function _prepareColumns()
     {
+        $this->addColumn(
+            'indexAA',
+            [
+                'header_css_class' => 'col-select col-massaction',
+                'column_css_class' => 'col-select col-massaction',
+                'type' => 'checkbox',
+                'name' => 'indexAA',
+                'values' => 'page_id',
+                'index' => 'page_id',
+                'use_index' => true
+            ]
+        );
+
         $this->addColumn('title', ['header' => __('Title'), 'index' => 'title']);
 
         $this->addColumn('identifier', ['header' => __('URL Key'), 'index' => 'identifier']);
@@ -142,7 +156,7 @@ class Conditions extends Extended implements TabInterface
             ]
         );
 
-        $this->addColumn(
+        /*$this->addColumn(
             'page_actions',
             [
                 'header' => __('Action'),
@@ -152,7 +166,7 @@ class Conditions extends Extended implements TabInterface
                 'header_css_class' => 'col-action',
                 'column_css_class' => 'col-action'
             ]
-        );
+        );*/
 
         return parent::_prepareColumns();
     }

@@ -109,7 +109,7 @@ class Main extends Generic implements TabInterface
                 'title' => __('Status'),
                 'name' => 'is_active',
                 'required' => true,
-                'options' => ['1' => __('Enable'), '0' => __('Disable')]
+                'options' => [1 => __('Enable'), 0 => __('Disable')]
             ]
         );
 
@@ -118,33 +118,10 @@ class Main extends Generic implements TabInterface
         }
 
         $fieldset->addField('sort_order', 'text', ['name' => 'sort_order', 'label' => __('Position')]);
-
-        /*$dateFormat = $this->_localeDate->getDateFormat(\IntlDateFormatter::SHORT);
-        $fieldset->addField(
-            'from_date',
-            'date',
-            [
-                'name' => 'from_date',
-                'label' => __('From'),
-                'title' => __('From'),
-                'input_format' => \Magento\Framework\Stdlib\DateTime::DATE_INTERNAL_FORMAT,
-                'date_format' => $dateFormat
-            ]
-        );
-        $fieldset->addField(
-            'to_date',
-            'date',
-            [
-                'name' => 'to_date',
-                'label' => __('To'),
-                'title' => __('To'),
-                'input_format' => \Magento\Framework\Stdlib\DateTime::DATE_INTERNAL_FORMAT,
-                'date_format' => $dateFormat
-            ]
-        );*/
+        
 
         $form->setValues($model->getData());
-
+        
         /*if ($model->isReadonly()) {
             foreach ($fieldset->getElements() as $element) {
                 $element->setReadonly(true, true);
