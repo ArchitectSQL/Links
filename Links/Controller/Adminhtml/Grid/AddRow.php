@@ -62,6 +62,8 @@ class AddRow extends \Magento\Backend\App\Action
         $this->coreRegistry->register('row_data', $rowData);
         $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
         $title = $rowId ? __('Edit Row Data ').$rowTitle : __('Add Row Data');
+        /*$resultPage->getLayout()->getBlock('edit_tab_conditions')
+            ->setPages($this->getRequest()->getPost('pages', null));*/
         $resultPage->getConfig()->getTitle()->prepend($title);
         return $resultPage;
     }

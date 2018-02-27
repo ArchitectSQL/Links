@@ -23,6 +23,8 @@ class Conditions extends Extended implements TabInterface
      */
     protected $pageLayoutBuilder;
 
+    protected $_coreRegistry = null;
+
     /**
      * @param \Magento\Backend\Block\Template\Context $context
      * @param \Magento\Backend\Helper\Data $backendHelper
@@ -37,11 +39,13 @@ class Conditions extends Extended implements TabInterface
         \Magento\Cms\Model\Page $cmsPage,
         \Magento\Cms\Model\ResourceModel\Page\CollectionFactory $collectionFactory,
         \Magento\Framework\View\Model\PageLayout\Config\BuilderInterface $pageLayoutBuilder,
+        \Magento\Framework\Registry $coreRegistry,
         array $data = []
     ) {
         $this->_collectionFactory = $collectionFactory;
         $this->_cmsPage = $cmsPage;
         $this->pageLayoutBuilder = $pageLayoutBuilder;
+        $this->_coreRegistry = $coreRegistry;
         parent::__construct($context, $backendHelper, $data);
     }
 
@@ -52,9 +56,31 @@ class Conditions extends Extended implements TabInterface
     {
         parent::_construct();
         $this->setId('cmsPageGrid');
-        $this->setDefaultSort('identifier');
-        $this->setDefaultDir('ASC');
+        $this->setDefaultSort('page_id');
+        //$this->setDefaultDir('ASC');
+        $this->setUseAjax(true);
         //var_dump($this->_cmsPage);exit();
+    }
+
+    protected function _addColumnFilterToCollection($column)
+    {
+        // Set custom filter for in product flag
+        if ($column->getId() == 'indexAA') {
+            $pageIds = $this->_getSelectedProducts();
+            if (empty($pageIds)) {
+                $pageIds = 0;
+            }
+            if ($column->getFilter()->getValue()) {
+                $this->getCollection()->addFieldToFilter('page_id', ['in' => $pageIds]);
+            } else {
+                if ($pageIds) {
+                    $this->getCollection()->addFieldToFilter('page_id', ['nin' => $pageIds]);
+                }
+            }
+        } else {
+            parent::_addColumnFilterToCollection($column);
+        }
+        return $this;
     }
 
     /**
@@ -66,12 +92,15 @@ class Conditions extends Extended implements TabInterface
     {
         $collection = $this->_collectionFactory->create();
         /* @var $collection \Magento\Cms\Model\ResourceModel\Page\Collection */
-        $collection->setFirstStoreFlag(true);
+        //$collection->setFirstStoreFlag(true);
         $this->setCollection($collection);
 
         return parent::_prepareCollection();
     }
-
+    public function getPage()
+    {
+        return $this->_coreRegistry->registry('current_page');
+    }
     /**
      * Prepare columns
      *
@@ -85,10 +114,9 @@ class Conditions extends Extended implements TabInterface
                 'header_css_class' => 'col-select col-massaction',
                 'column_css_class' => 'col-select col-massaction',
                 'type' => 'checkbox',
-                'name' => 'indexAA',
-                'values' => 'page_id',
-                'index' => 'page_id',
-                'use_index' => true
+                'values' => /*'page_id'*/$this->getCollection(),
+                'index' => 'page_id'/*,
+                'use_index' => true*/
             ]
         );
 
@@ -199,6 +227,34 @@ class Conditions extends Extended implements TabInterface
         $this->getCollection()->addStoreFilter($value);
     }
 
+  /*  protected function _getSelectedPages()
+    {
+
+        $pages = array_keys($this->getSelectedPages());
+
+        return $pages;
+    }
+    public function getSelectedPages()
+    {
+        $tm_id = $this->getRequest()->getParam('id');
+        if(!isset($tm_id)) {
+            $tm_id = 0;
+        }
+
+
+
+        $collection = $this->_collectionFactory->create()->load($tm_id);
+        $data =  $collection->getPageId();
+        $pages = explode(',',$data);
+
+        $proIds = array();
+
+        foreach($pages as $page) {
+            $proIds[$page] = array('id'=>$page);
+        }
+
+        return $proIds;
+    }*/
     /**
      * {@inheritdoc}
      */
