@@ -21,7 +21,7 @@
                 <item name="name" xsi:type="string">add</item>
                 <item name="label" xsi:type="string" translate="true">Add New Row</item>
                 <item name="class" xsi:type="string">primary</item>
-                <item name="url" xsi:type="string">*/*/addrow</item>
+                <item name="url" xsi:type="string">*/*/edit</item>
             </item>
         </item>
     </argument>

@@ -11,7 +11,7 @@ namespace Web4pro\Links\Controller\Adminhtml\Grid;
 
 use Magento\Framework\Controller\ResultFactory;
 
-class AddRow extends \Magento\Backend\App\Action
+class Edit extends \Magento\Backend\App\Action
 {
     /**
      * @var \Magento\Framework\Registry
@@ -63,7 +63,7 @@ class AddRow extends \Magento\Backend\App\Action
         $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
         $title = $rowId ? __('Edit Row Data ').$rowTitle : __('Add Row Data');
         /*$resultPage->getLayout()->getBlock('edit_tab_conditions')
-            ->setPages($this->getRequest()->getPost('pages', null));*/
+            ->setPages($this->getRequest()->setPages('pages', null));*/
         $resultPage->getConfig()->getTitle()->prepend($title);
         return $resultPage;
     }

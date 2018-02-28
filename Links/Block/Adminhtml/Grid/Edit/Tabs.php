@@ -20,26 +20,30 @@ class Tabs extends \Magento\Backend\Block\Widget\Tabs
      *
      * @return $this
      */
-    /*protected function _prepareLayout()
+    protected function _prepareLayout()
     {
         $this->addTab(
-            'main',
+            'edit_tab_main',
             [
-                'label' => __('Products'),
-                'url' => $this->getUrl('grid/*//*grid', ['_current' => true]),
-                'class' => 'ajax'
+                'label' => __('Main'),
+                'content' => $this->getLayout()->createBlock(
+                    \Web4pro\Links\Block\Adminhtml\Grid\Edit\Tab\Main::class
+                )->toHtml(),
+                'active' => true
             ]
         );
         $this->addTab(
-            'conditions',
+            'edit_tab_conditions',
             [
-                'label' => __('conditions'),
-                'url' => $this->getUrl('grid/*//*grid', ['_current' => true]),
-                'class' => 'ajax'
+                'label' => __('Conditions'),
+                'content' => $this->getLayout()->createBlock(
+                    \Web4pro\Links\Block\Adminhtml\Grid\Edit\Tab\Conditions::class
+                )->toHtml(),
+                'active' => true
             ]
         );
         return parent::_prepareLayout();
         
-    }*/
+    }
 
 }

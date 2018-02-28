@@ -109,14 +109,14 @@ class Conditions extends Extended implements TabInterface
     protected function _prepareColumns()
     {
         $this->addColumn(
-            'indexAA',
+            'pages[]',
             [
-                'header_css_class' => 'col-select col-massaction',
-                'column_css_class' => 'col-select col-massaction',
+                /*'header_css_class' => 'col-select col-massaction',
+                'column_css_class' => 'col-select col-massaction',*/
                 'type' => 'checkbox',
-                'values' => /*'page_id'*/$this->getCollection(),
-                'index' => 'page_id'/*,
-                'use_index' => true*/
+                'values' => 'page_id'/*$this->getCollection()*/,
+                'index' => 'page_id'
+                /*'use_index' => true*/
             ]
         );
 
