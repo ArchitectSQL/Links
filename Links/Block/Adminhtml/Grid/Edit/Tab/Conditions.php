@@ -117,6 +117,7 @@ class Conditions extends Extended implements TabInterface
                 'values' => 'page_id'/*$this->getCollection()*/,
                 'index' => 'page_id'
                 /*'use_index' => true*/
+                
             ]
         );
 

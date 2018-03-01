@@ -23,6 +23,9 @@ class Grid extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
      */
     protected $_date;
 
+    protected $linksPages;
+
+    protected $request;
     /**
      * Construct.
      *
@@ -33,10 +36,14 @@ class Grid extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
     public function __construct(
         \Magento\Framework\Model\ResourceModel\Db\Context $context,
         \Magento\Framework\Stdlib\DateTime\DateTime $date,
+        \Web4pro\Links\Model\LinksPagesFactory $linksPages,
+        \Magento\Framework\App\Request\Http $request,
         $resourcePrefix = null
     ) {
         parent::__construct($context, $resourcePrefix);
         $this->_date = $date;
+        $this->linksPages = $linksPages;
+        $this->request = $request;
     }
 
     /**
@@ -45,5 +52,26 @@ class Grid extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
     protected function _construct()
     {
         $this->_init('web4pro_links', 'entity_id');
+    }
+
+    protected function _afterSave(\Magento\Framework\Model\AbstractModel $object)
+    {
+
+        $data = $this->request->getPost();
+        //var_dump($object->getEntityId());exit();
+        $idLink = $object->getEntityId();
+        $modelLP = $this->linksPages->create();
+        $pages = $data['pages'];
+        array_shift($pages);
+        foreach ($pages as $key => $idPage) {
+            $linkPage = [
+                'link_id' => $idLink,
+                'page_id' => $idPage
+            ];
+            $modelLP->setData($linkPage);
+            $modelLP->save();
+        }
+
+
     }
 }
