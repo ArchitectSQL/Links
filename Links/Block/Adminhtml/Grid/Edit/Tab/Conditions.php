@@ -58,11 +58,11 @@ class Conditions extends Extended implements TabInterface
         $this->setId('cmsPageGrid');
         $this->setDefaultSort('page_id');
         //$this->setDefaultDir('ASC');
-        $this->setUseAjax(true);
+        //$this->setUseAjax(true);
         //var_dump($this->_cmsPage);exit();
     }
 
-    protected function _addColumnFilterToCollection($column)
+    /*protected function _addColumnFilterToCollection($column)
     {
         // Set custom filter for in product flag
         if ($column->getId() == 'indexAA') {
@@ -81,7 +81,7 @@ class Conditions extends Extended implements TabInterface
             parent::_addColumnFilterToCollection($column);
         }
         return $this;
-    }
+    }*/
 
     /**
      * Prepare collection
@@ -97,10 +97,10 @@ class Conditions extends Extended implements TabInterface
 
         return parent::_prepareCollection();
     }
-    public function getPage()
+   /* public function getPage()
     {
         return $this->_coreRegistry->registry('current_page');
-    }
+    }*/
     /**
      * Prepare columns
      *
@@ -117,7 +117,7 @@ class Conditions extends Extended implements TabInterface
                 'values' => 'page_id'/*$this->getCollection()*/,
                 'index' => 'page_id'
                 /*'use_index' => true*/
-                
+
             ]
         );
 
@@ -219,14 +219,14 @@ class Conditions extends Extended implements TabInterface
      * @return void
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    protected function _filterStoreCondition($collection, \Magento\Framework\DataObject $column)
+    /*protected function _filterStoreCondition($collection, \Magento\Framework\DataObject $column)
     {
         if (!($value = $column->getFilter()->getValue())) {
             return;
         }
 
         $this->getCollection()->addStoreFilter($value);
-    }
+    }*/
 
   /*  protected function _getSelectedPages()
     {

@@ -60,7 +60,7 @@ class InstallSchema implements InstallSchemaInterface
             [],
             'Sort Order'
         )->addColumn(
-            'is_active',
+            'status',
             \Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
             null,
             [],

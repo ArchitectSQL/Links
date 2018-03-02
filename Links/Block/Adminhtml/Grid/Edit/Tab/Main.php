@@ -102,14 +102,14 @@ class Main extends Generic implements TabInterface
         );*/
 
         $fieldset->addField(
-            'is_active',
+            'status',
             'select',
             [
                 'label' => __('Status'),
                 'title' => __('Status'),
-                'name' => 'is_active',
+                'name' => 'status',
                 'required' => true,
-                'options' => [1 => __('Enable'), 0 => __('Disable')]
+                'options' => ['1' => __('Enable'), '0' => __('Disable')]
             ]
         );
 

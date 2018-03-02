@@ -28,8 +28,8 @@ class Tabs extends \Magento\Backend\Block\Widget\Tabs
                 'label' => __('Main'),
                 'content' => $this->getLayout()->createBlock(
                     \Web4pro\Links\Block\Adminhtml\Grid\Edit\Tab\Main::class
-                )->toHtml(),
-                'active' => true
+                )->toHtml()//,
+                //'active' => true
             ]
         );
         $this->addTab(
@@ -38,8 +38,8 @@ class Tabs extends \Magento\Backend\Block\Widget\Tabs
                 'label' => __('Conditions'),
                 'content' => $this->getLayout()->createBlock(
                     \Web4pro\Links\Block\Adminhtml\Grid\Edit\Tab\Conditions::class
-                )->toHtml(),
-                'active' => true
+                )->toHtml()//,
+                //'active' => true
             ]
         );
         return parent::_prepareLayout();
