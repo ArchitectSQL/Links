@@ -149,7 +149,7 @@
                 </item>
             </argument>
         </column>
-       <column name="is_active" >
+       <column name="status" >
            <argument name="data" xsi:type="array">
                <item name="options" xsi:type="object">Web4pro\Links\Model\Status</item>
                <item name="config" xsi:type="array">

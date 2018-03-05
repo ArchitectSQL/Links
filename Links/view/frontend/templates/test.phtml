@@ -1,0 +1,38 @@
+
+<h1>111111111111111111</h1>
+
+<?php
+    // Id
+    $pageId = $block->pageId();
+    //M M
+    $linksPages = $block->manyToMany()->getCollection()->addFieldToFilter('page_id',$pageId);
+    var_dump($linksPages->getData());
+    $arrayPages = $block->manyToMany()->getCollection()->addFieldToSelect('page_id')/*->getData()*/;
+    $pages = array();
+    foreach ($arrayPages as $page){
+        array_push($pages,$page->getPageId());
+    }
+    //var_dump($pages);exit();
+    //var_dump($linksPages->getData());exit();
+    // Select titlelink from web4pro_links as l inner join links_cms_pages as m on l.entity_id=m.link_id where m.page_id=1
+    $idsLinkPage = array();
+    foreach ($linksPages as $linkpage){
+        array_push($idsLinkPage,$linkpage->getLinkId());
+    }
+
+    //тут фильтр на страницы будет
+    $links = $block->collection()->getCollection()->addFieldToFilter('entity_id', array('in' => $idsLinkPage))
+                                                  ->addFieldToFilter('status',1);
+
+?>
+<?php if(in_array($pageId,$pages)): ?>
+<div style="border: black 1px dotted;height: 20px;">
+    <p>Menu LINKS</p>
+    <ul>
+    <?php foreach($links as $link): ?>
+        <li><a href="<?= $link->getPath();?>"><?= $link->getTitlelink();?></a></li>
+
+    <?php endforeach; ?>
+    </ul>
+</div>
+<?php endif; ?>
