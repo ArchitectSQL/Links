@@ -219,16 +219,16 @@ class Conditions extends Extended implements TabInterface
      * @return void
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    /*protected function _filterStoreCondition($collection, \Magento\Framework\DataObject $column)
+    protected function _filterStoreCondition($collection, \Magento\Framework\DataObject $column)
     {
         if (!($value = $column->getFilter()->getValue())) {
             return;
         }
 
         $this->getCollection()->addStoreFilter($value);
-    }*/
+    }
 
-  /*  protected function _getSelectedPages()
+  /*protected function _getSelectedPages()
     {
 
         $pages = array_keys($this->getSelectedPages());

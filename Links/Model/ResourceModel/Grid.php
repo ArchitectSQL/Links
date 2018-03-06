@@ -61,9 +61,9 @@ class Grid extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
         //var_dump($object->getEntityId());exit();
         $idLink = $object->getEntityId();
         $modelLP = $this->linksPages->create();
-        $pages = $data['pages'];
-        array_shift($pages);
-        foreach ($pages as $key => $idPage) {
+        $pagesString = $data['pages'];
+        $pagesArray = explode('&',$pagesString);
+        foreach ($pagesArray as $key => $idPage) {
             $linkPage = [
                 'link_id' => $idLink,
                 'page_id' => $idPage
