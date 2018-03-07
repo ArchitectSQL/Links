@@ -2,7 +2,6 @@
 
 namespace Web4pro\Links\Block\Adminhtml\Grid\Edit\Tab;
 
-//use Magento\Backend\Block\Widget\Form\Generic;
 use Magento\Backend\Block\Widget\Tab\TabInterface;
 use Magento\Backend\Block\Widget\Grid\Extended;
 
@@ -25,6 +24,8 @@ class Conditions extends Extended implements TabInterface
 
     protected $_coreRegistry = null;
 
+    protected $linksPages;
+
     /**
      * @param \Magento\Backend\Block\Template\Context $context
      * @param \Magento\Backend\Helper\Data $backendHelper
@@ -40,12 +41,14 @@ class Conditions extends Extended implements TabInterface
         \Magento\Cms\Model\ResourceModel\Page\CollectionFactory $collectionFactory,
         \Magento\Framework\View\Model\PageLayout\Config\BuilderInterface $pageLayoutBuilder,
         \Magento\Framework\Registry $coreRegistry,
+        \Web4pro\Links\Model\LinksPagesFactory $linksPages,
         array $data = []
     ) {
         $this->_collectionFactory = $collectionFactory;
         $this->_cmsPage = $cmsPage;
         $this->pageLayoutBuilder = $pageLayoutBuilder;
         $this->_coreRegistry = $coreRegistry;
+        $this->linksPages = $linksPages;
         parent::__construct($context, $backendHelper, $data);
     }
 
@@ -62,10 +65,10 @@ class Conditions extends Extended implements TabInterface
         //var_dump($this->_cmsPage);exit();
     }
 
-    /*protected function _addColumnFilterToCollection($column)
+    protected function _addColumnFilterToCollection($column)
     {
         // Set custom filter for in product flag
-        if ($column->getId() == 'indexAA') {
+        if ($column->getId() == 'pages') {
             $pageIds = $this->_getSelectedProducts();
             if (empty($pageIds)) {
                 $pageIds = 0;
@@ -81,7 +84,7 @@ class Conditions extends Extended implements TabInterface
             parent::_addColumnFilterToCollection($column);
         }
         return $this;
-    }*/
+    }
 
     /**
      * Prepare collection
@@ -91,16 +94,10 @@ class Conditions extends Extended implements TabInterface
     protected function _prepareCollection()
     {
         $collection = $this->_collectionFactory->create();
-        /* @var $collection \Magento\Cms\Model\ResourceModel\Page\Collection */
-        //$collection->setFirstStoreFlag(true);
         $this->setCollection($collection);
 
         return parent::_prepareCollection();
     }
-   /* public function getPage()
-    {
-        return $this->_coreRegistry->registry('current_page');
-    }*/
     /**
      * Prepare columns
      *
@@ -109,14 +106,13 @@ class Conditions extends Extended implements TabInterface
     protected function _prepareColumns()
     {
         $this->addColumn(
-            'pages[]',
+            'pages',
             [
                 /*'header_css_class' => 'col-select col-massaction',
                 'column_css_class' => 'col-select col-massaction',*/
                 'type' => 'checkbox',
-                'values' => 'page_id'/*$this->getCollection()*/,
+                'values' => $this->getSelectedPages(),
                 'index' => 'page_id'
-                /*'use_index' => true*/
 
             ]
         );
@@ -184,7 +180,6 @@ class Conditions extends Extended implements TabInterface
                 'column_css_class' => 'col-date'
             ]
         );
-
         /*$this->addColumn(
             'page_actions',
             [
@@ -196,7 +191,6 @@ class Conditions extends Extended implements TabInterface
                 'column_css_class' => 'col-action'
             ]
         );*/
-
         return parent::_prepareColumns();
     }
 
@@ -228,34 +222,27 @@ class Conditions extends Extended implements TabInterface
         $this->getCollection()->addStoreFilter($value);
     }
 
-  /*protected function _getSelectedPages()
-    {
-
-        $pages = array_keys($this->getSelectedPages());
-
-        return $pages;
-    }
     public function getSelectedPages()
     {
+        
+
         $tm_id = $this->getRequest()->getParam('id');
         if(!isset($tm_id)) {
-            $tm_id = 0;
+            $tm_id = 0;}
+
+        $collection = $this->linksPages->create();
+        $collection = $collection->getCollection()->addFieldToFilter('link_id',$tm_id);
+
+        $data =  $collection->getData();
+        $pages = array();
+        foreach($data as $id)
+        {
+            array_push($pages,$id['page_id']);
         }
 
+        return $pages;
 
-
-        $collection = $this->_collectionFactory->create()->load($tm_id);
-        $data =  $collection->getPageId();
-        $pages = explode(',',$data);
-
-        $proIds = array();
-
-        foreach($pages as $page) {
-            $proIds[$page] = array('id'=>$page);
-        }
-
-        return $proIds;
-    }*/
+    }
     /**
      * {@inheritdoc}
      */

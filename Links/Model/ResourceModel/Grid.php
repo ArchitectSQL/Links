@@ -61,6 +61,12 @@ class Grid extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
         //var_dump($object->getEntityId());exit();
         $idLink = $object->getEntityId();
         $modelLP = $this->linksPages->create();
+
+        $matches = $modelLP->getCollection()->addFieldToFilter('link_id',$idLink);
+        //var_dump($matches->getData());exit();
+        foreach ($matches as $id){
+            $modelLP->load($id->getId())->delete();
+        }
         $pagesString = $data['pages'];
         $pagesArray = explode('&',$pagesString);
         foreach ($pagesArray as $key => $idPage) {

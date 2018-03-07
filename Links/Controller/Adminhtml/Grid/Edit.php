@@ -32,6 +32,7 @@ class Edit extends \Magento\Backend\App\Action
         \Magento\Backend\App\Action\Context $context,
         \Magento\Framework\Registry $coreRegistry,
         \Web4pro\Links\Model\GridFactory $gridFactory
+
     ) {
         parent::__construct($context);
         $this->coreRegistry = $coreRegistry;
@@ -58,12 +59,12 @@ class Edit extends \Magento\Backend\App\Action
                 return;
             }
         }
-
+        //$this->productBuilder->build($this->getRequest());
         $this->coreRegistry->register('row_data', $rowData);
         $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
         $title = $rowId ? __('Edit Row Data ').$rowTitle : __('Add Row Data');
         /*$resultPage->getLayout()->getBlock('edit_tab_conditions')
-            ->setPages($this->getRequest()->setPages('pages', null));*/
+            ->setProducts($this->getRequest()->getPost('products', null));*/
         $resultPage->getConfig()->getTitle()->prepend($title);
         return $resultPage;
     }

@@ -77,6 +77,7 @@ class Tabs extends \Magento\Backend\Block\Widget\Tabs
             'edit_tab_conditions',
             [
                 'label' => __('Conditions'),
+                'class' => 'ajax',
                 'content' => ($grid->toHtml().$serializer->toHtml())//,
                 //'active' => true
             ]

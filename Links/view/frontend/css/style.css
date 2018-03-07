@@ -1,0 +1,26 @@
+.web4pro-links-menu {
+    border: black 1px solid;
+    width: 158px;
+    height:300px;
+    display: inline-table;
+    background-color: gray;
+}
+.web4pro-links-title {
+    margin: 0 auto;
+    padding: 25px;
+    padding-bottom: 1px;
+    text-align: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: white;
+    font-size: 2em;
+}
+
+.web4pro-links-title li {
+    list-style-type:none;
+}
+
+.web4pro-links-title a {
+    font-size: 1.3em;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: white;
+}
