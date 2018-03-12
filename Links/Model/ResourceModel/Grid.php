@@ -9,15 +9,19 @@
  */
 namespace Web4pro\Links\Model\ResourceModel;
 
+use Magento\Framework\Model\AbstractModel;
+use Magento\Backend\Helper\Js;
+
 /**
  * Links Links mysql resource.
  */
 class Grid extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 {
+    protected $_backendJsHelper;
     /**
      * @var string
      */
-    protected $_idFieldName = 'entity_id';
+    //protected $_idFieldName = 'entity_id';
     /**
      * @var \Magento\Framework\Stdlib\DateTime\DateTime
      */
@@ -35,15 +39,14 @@ class Grid extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
      */
     public function __construct(
         \Magento\Framework\Model\ResourceModel\Db\Context $context,
-        \Magento\Framework\Stdlib\DateTime\DateTime $date,
-        \Web4pro\Links\Model\LinksPagesFactory $linksPages,
+        \Web4pro\Links\Model\ResourceModel\LinksPages $linksPages,
         \Magento\Framework\App\Request\Http $request,
-        $resourcePrefix = null
+        Js $backendJsHelper
     ) {
-        parent::__construct($context, $resourcePrefix);
-        $this->_date = $date;
+        parent::__construct($context);
         $this->linksPages = $linksPages;
         $this->request = $request;
+        $this->_backendJsHelper = $backendJsHelper;
     }
 
     /**
@@ -55,29 +58,57 @@ class Grid extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
     }
 
     protected function _afterSave(\Magento\Framework\Model\AbstractModel $object)
-    {
+        {
+            $pages = $this->request->getPostValue('pages');
+            $pagesId = $this->_backendJsHelper->decodeGridSerializedInput($pages);
+            $parentId = $object->getId();
+            $connection = $this->getConnection();
+            $bind = [':link_id' => (int)$parentId];
+            $tableDependenceName = $this->linksPages->getMainTable();
+            $select = $connection->select()->from(
+                $tableDependenceName,
+                ['id', 'page_id']
+            )->where(
+                'link_id = :link_id'
+            );
 
-        $data = $this->request->getPost();
-        //var_dump($object->getEntityId());exit();
-        $idLink = $object->getEntityId();
-        $modelLP = $this->linksPages->create();
+            $links = $connection->fetchPairs($select, $bind);
+            if (empty($links) && !empty($pagesId)) {
+                    foreach($pagesId as $pageId){
+                        $data [] = [
+                            'page_id' => $pageId,
+                            'link_id' => $parentId,
+                        ];
+                    }
+                    $connection->insertMultiple($tableDependenceName, $data);
 
-        $matches = $modelLP->getCollection()->addFieldToFilter('link_id',$idLink);
-        //var_dump($matches->getData());exit();
-        foreach ($matches as $id){
-            $modelLP->load($id->getId())->delete();
+            } else {
+                foreach ($pagesId as $pageId) {
+
+                    if (!in_array($pageId, $links)) {
+                        $dataInsert [] = [
+                            'page_id' => $pageId,
+                            'link_id' => $parentId,
+                        ];
+
+                    }
+                }
+                foreach ($links as $linkId => $linkValue) {
+                    if (!in_array($linkValue, $pagesId)) {
+                        $dataDelete [] = $linkId;
+                    }
+                }
+
+                if(!empty($dataInsert)){
+                    $connection->insertMultiple($tableDependenceName, $dataInsert);
+                }
+                if(!empty($dataDelete)){
+                    $connection->delete($tableDependenceName, ['id IN (?)' => $dataDelete]);
+                }
+            }
+            return parent::_afterSave($object);
         }
-        $pagesString = $data['pages'];
-        $pagesArray = explode('&',$pagesString);
-        foreach ($pagesArray as $key => $idPage) {
-            $linkPage = [
-                'link_id' => $idLink,
-                'page_id' => $idPage
-            ];
-            $modelLP->setData($linkPage);
-            $modelLP->save();
-        }
 
 
-    }
+
 }

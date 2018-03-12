@@ -25,7 +25,6 @@ class Grid extends \Magento\Backend\App\Action
     {
 
         $resultLayout = $this->resultLayoutFactory->create();
-        //$resultLayout->getLayout()->getBlock('link.grid.edit.tab.grid');
         return $resultLayout;
     }
 

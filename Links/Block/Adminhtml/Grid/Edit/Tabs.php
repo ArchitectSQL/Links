@@ -42,7 +42,7 @@ class Tabs extends \Magento\Backend\Block\Widget\Tabs
                 //'active' => true
             ]
         );
-        return parent::_prepareLayout();
+        return parent::_prepareLayohttp://devdocs.magento.com/guides/v2.0/frontend-dev-guide/layouts/xml-instructions.htmlut();
         
     }*/
     protected function _beforeToHtml()

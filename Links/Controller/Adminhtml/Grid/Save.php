@@ -27,12 +27,10 @@ class Save extends \Magento\Backend\App\Action
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
         \Web4pro\Links\Model\GridFactory $gridFactory,
-        /*\Web4pro\Links\Model\LinksPagesFactory $linksPages,*/
         \Magento\Cms\Model\PageFactory $pageFactory
     ) {
         parent::__construct($context);
         $this->gridFactory = $gridFactory;
-        //$this->linksPages = $linksPages;
         $this->pageFactory = $pageFactory;
     }
 
@@ -43,7 +41,6 @@ class Save extends \Magento\Backend\App\Action
     public function execute()
     {
         $data = $this->getRequest()->getPostValue();
-        //var_dump($data);exit();
         if (!$data) {
             $this->_redirect('grid/grid/edit');
             return;

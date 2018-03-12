@@ -46,9 +46,7 @@ class Links extends \Magento\Framework\View\Element\Template
     public function collection()
     {
         /*$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-
         $productCollection = $objectManager->create('\Web4pro\Links\Model\GridFactory');
-
         $collection = $productCollection->create();*/
         $collection = $this->gridFactory->create();
 
