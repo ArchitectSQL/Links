@@ -34,22 +34,50 @@ class Links extends \Magento\Framework\View\Element\Template
             $pageId = $this->page->getId();
             return $pageId;
         }
-         
     }
     
-    public function manyToMany()
+    public function modelLinksPages()
     {
-        $collectionMany = $this->linksPages->create();
+        $model = $this->linksPages->create();
 
-        return $collectionMany;
+        return $model;
     }
-    public function collection()
-    {
-        /*$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-        $productCollection = $objectManager->create('\Web4pro\Links\Model\GridFactory');
-        $collection = $productCollection->create();*/
-        $collection = $this->gridFactory->create();
 
-        return $collection;
+    public function modelLinks()
+    {
+        $model = $this->gridFactory->create();
+
+        return $model;
+    }
+
+    public function getAllPages()
+    {
+        $arrayPages = $this->modelLinksPages()->getCollection()->addFieldToSelect('page_id');
+        $pages = array();
+        foreach ($arrayPages as $page){
+            array_push($pages,$page->getPageId());
+        }
+
+        return $pages;
+    }
+
+    public function outputLinks()
+    {
+        $pageId = $this->pageId();
+        if (!empty($pageId)) {
+
+            $linksPages = $this->modelLinksPages()->getCollection()->addFieldToFilter('page_id',$pageId);
+            // Select titlelink from web4pro_links as l inner join links_cms_pages as m on l.entity_id=m.link_id where m.page_id=1
+            $idsLinkPage = array();
+            foreach ($linksPages as $linkpage){
+                array_push($idsLinkPage,$linkpage->getLinkId());
+            }
+            $links = $this->modelLinks()->getCollection()->addFieldToFilter('entity_id', array('in' => $idsLinkPage))
+                ->addFieldToFilter('status',1)
+                ->setOrder('sort_order','ASC');
+
+            return $links;
+        }
+
     }
 }

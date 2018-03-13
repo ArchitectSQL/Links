@@ -12,23 +12,6 @@ class Main extends Generic implements TabInterface
 {
 
     /**
-     * Constructor
-     *
-     * @param Context $context
-     * @param Registry $registry
-     * @param FormFactory $formFactory
-     * @param array $data
-     */
-    public function __construct(
-        Context $context,
-        Registry $registry,
-        FormFactory $formFactory,
-        array $data = []
-    ) {
-        parent::__construct($context, $registry, $formFactory, $data);
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function getTabLabel()
@@ -71,7 +54,6 @@ class Main extends Generic implements TabInterface
 
         /** @var \Magento\Framework\Data\Form $form */
         $form = $this->_formFactory->create();
-       /* $form->setHtmlIdPrefix('rule_');*/
 
         $fieldset = $form->addFieldset('base_fieldset', ['legend' => __('General Information')]);
 
@@ -90,17 +72,6 @@ class Main extends Generic implements TabInterface
             ['name' => 'path', 'label' => __('Path'), 'title' => __('Path'), 'required' => true]
         );
 
-        /*$fieldset->addField(
-            'description',
-            'textarea',
-            [
-                'name' => 'description',
-                'label' => __('Description'),
-                'title' => __('Description'),
-                'style' => 'height: 100px;'
-            ]
-        );*/
-
         $fieldset->addField(
             'status',
             'select',
@@ -118,20 +89,10 @@ class Main extends Generic implements TabInterface
         }
 
         $fieldset->addField('sort_order', 'text', ['name' => 'sort_order', 'label' => __('Position')]);
-        
 
         $form->setValues($model->getData());
-        
-        /*if ($model->isReadonly()) {
-            foreach ($fieldset->getElements() as $element) {
-                $element->setReadonly(true, true);
-            }
-        }*/
 
         $this->setForm($form);
-
-        //$this->_eventManager->dispatch('adminhtml_example_rule_edit_tab_main_prepare_form', ['form' => $form]);
-
         return parent::_prepareForm();
     }
 }

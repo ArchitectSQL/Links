@@ -108,7 +108,4 @@ class Grid extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
             }
             return parent::_afterSave($object);
         }
-
-
-
 }

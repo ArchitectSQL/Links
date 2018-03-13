@@ -60,9 +60,6 @@ class Conditions extends Extended implements TabInterface
         parent::_construct();
         $this->setId('cmsPageGrid');
         $this->setDefaultSort('page_id');
-        //$this->setDefaultDir('ASC');
-        //$this->setUseAjax(true);
-        //var_dump($this->_cmsPage);exit();
     }
 
     protected function _addColumnFilterToCollection($column)
@@ -180,17 +177,6 @@ class Conditions extends Extended implements TabInterface
                 'column_css_class' => 'col-date'
             ]
         );
-        /*$this->addColumn(
-            'page_actions',
-            [
-                'header' => __('Action'),
-                'sortable' => false,
-                'filter' => false,
-                'renderer' => \Magento\Cms\Block\Adminhtml\Page\Grid\Renderer\Action::class,
-                'header_css_class' => 'col-action',
-                'column_css_class' => 'col-action'
-            ]
-        );*/
         return parent::_prepareColumns();
     }
 
@@ -239,7 +225,6 @@ class Conditions extends Extended implements TabInterface
         {
             array_push($pages,$id['page_id']);
         }
-        //var_dump($pages);exit();
         return $pages;
 
     }

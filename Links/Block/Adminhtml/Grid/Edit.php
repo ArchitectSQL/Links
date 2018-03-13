@@ -36,7 +36,6 @@ class Edit extends \Magento\Backend\Block\Widget\Form\Container
      */
     protected function _construct()
     {
-        //$this->_objectId = 'row_id';
         $this->_blockGroup = 'Web4pro_Links';
         $this->_controller = 'adminhtml_grid';
         parent::_construct();

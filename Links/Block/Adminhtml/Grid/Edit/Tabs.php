@@ -20,31 +20,6 @@ class Tabs extends \Magento\Backend\Block\Widget\Tabs
      *
      * @return $this
      */
-    /*protected function _prepareLayout()
-    {
-        $this->addTab(
-            'edit_tab_main',
-            [
-                'label' => __('Main'),
-                'content' => $this->getLayout()->createBlock(
-                    \Web4pro\Links\Block\Adminhtml\Grid\Edit\Tab\Main::class
-                )->toHtml()//,
-                //'active' => true
-            ]
-        );
-        $this->addTab(
-            'edit_tab_conditions',
-            [
-                'label' => __('Conditions'),
-                'content' => $this->getLayout()->createBlock(
-                    \Web4pro\Links\Block\Adminhtml\Grid\Edit\Tab\Conditions::class
-                )->toHtml()//,
-                //'active' => true
-            ]
-        );
-        return parent::_prepareLayohttp://devdocs.magento.com/guides/v2.0/frontend-dev-guide/layouts/xml-instructions.htmlut();
-        
-    }*/
     protected function _beforeToHtml()
     {
         $this->addTab(
@@ -78,8 +53,7 @@ class Tabs extends \Magento\Backend\Block\Widget\Tabs
             [
                 'label' => __('Conditions'),
                 'class' => 'ajax',
-                'content' => ($grid->toHtml().$serializer->toHtml())//,
-                //'active' => true
+                'content' => ($grid->toHtml().$serializer->toHtml()),
             ]
         );
 

@@ -5,30 +5,7 @@
         </referenceContainer>
         <referenceContainer name="left">
             <block class="Web4pro\Links\Block\Adminhtml\Grid\Edit\Tabs" name="web4pro_links_grid_edit_tabs">
-                <!--<block class="Magento\Backend\Block\Widget\Grid\Serializer" name="productgrid_grid_serializer">
-                    <arguments>
-                        <argument name="input_names" xsi:type="string">indexAA</argument>
-                        <argument name="grid_block" xsi:type="string">edit_tab_conditions</argument>
-                        <argument name="callback" xsi:type="string">getSelectedPages</argument>
-                        <argument name="input_element_name" xsi:type="string">serialize</argument>
-                        <argument name="reload_param_name" xsi:type="string">pages_related</argument>
-                    </arguments>
-                </block>-->
-                <!--<block class="Web4pro\Links\Block\Adminhtml\Grid\Edit\Tab\Main" name="edit_tab_main"/>
-                <block class="Web4pro\Links\Block\Adminhtml\Grid\Edit\Tab\Conditions" name="edit_tab_conditions"/>-->
-
             </block>
-
-            <!--<block class="Magento\Framework\View\Element\Template" name="grid_scriptjs" template="Web4pro_Links::scriptjs.phtml"/>-->
-                <!--<action method="addTab">
-                    <argument name="name" xsi:type="string">main</argument>
-                    <argument name="block" xsi:type="string">edit_tab_main</argument>
-
-                </action>
-                <action method="addTab">
-                    <argument name="name" xsi:type="string">conditions</argument>
-                    <argument name="block" xsi:type="string">edit_tab_conditions</argument>
-                </action>-->
         </referenceContainer>
     </body>
 </page>

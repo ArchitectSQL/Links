@@ -1,0 +1,22 @@
+<?php
+    $pages = $block->getAllPages();
+    $pageId = $block->pageId();
+    $links = $block->outputLinks();
+?>
+<?php if(in_array($pageId,$pages)): ?>
+<div style="border: black 1px solid; width: 158px;height:300px; display: inline-table; background-color: gray;">
+    <p style="margin: 0 auto;    padding: 25px;
+    padding-bottom: 1px;
+    text-align: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: white;
+    font-size: 2em;">Menu LINKS</p>
+    <ul>
+    <?php foreach($links as $link): ?>
+        <li style="list-style-type:none;"><a style="font-size: 1.3em;font-family: Georgia, 'Times New Roman', Times, serif;
+    color: white;" href="<?= $link->getPath();?>"><?= $link->getTitlelink();?></a></li>
+
+    <?php endforeach; ?>
+    </ul>
+</div>
+<?php endif; ?>

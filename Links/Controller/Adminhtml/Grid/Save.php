@@ -26,12 +26,12 @@ class Save extends \Magento\Backend\App\Action
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
-        \Web4pro\Links\Model\GridFactory $gridFactory,
-        \Magento\Cms\Model\PageFactory $pageFactory
+        \Web4pro\Links\Model\GridFactory $gridFactory/*,
+        \Magento\Cms\Model\PageFactory $pageFactory*/
     ) {
         parent::__construct($context);
         $this->gridFactory = $gridFactory;
-        $this->pageFactory = $pageFactory;
+        /*$this->pageFactory = $pageFactory;*/
     }
 
     /**

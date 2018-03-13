@@ -1,14 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-/**
- * Links record list UI Component
- * @category  Web4pro
- * @package   Webkul_Grid
- * @author    Web4pro
- * @copyright Copyright (c) 2010-2017 Web4pro Software Private Limited (https://webkul.com)
- * @license   https://store.webkul.com/license.html
- */
--->
 <listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Ui/etc/ui_configuration.xsd">
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
