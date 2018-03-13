@@ -14,13 +14,17 @@ class Links extends \Magento\Framework\View\Element\Template
     
     public $getRequest;
 
+    protected $resource;
+
     public function __construct(\Magento\Framework\View\Element\Template\Context $context,
                                 \Web4pro\Links\Model\GridFactory $gridFactory,
                                 \Web4pro\Links\Model\LinksPagesFactory $linksPages,
                                 \Magento\Cms\Model\PageFactory $pageFactory,
-                                \Magento\Cms\Model\Page $page)
+                                \Magento\Cms\Model\Page $page,
+                                \Magento\Framework\App\ResourceConnection $Resource)
     {
         parent::__construct($context);
+        $this->resource = $Resource;
         $this->gridFactory = $gridFactory;
         $this->pageFactory = $pageFactory;
         $this->linksPages = $linksPages;
@@ -64,20 +68,17 @@ class Links extends \Magento\Framework\View\Element\Template
     public function outputLinks()
     {
         $pageId = $this->pageId();
-        if (!empty($pageId)) {
-
-            $linksPages = $this->modelLinksPages()->getCollection()->addFieldToFilter('page_id',$pageId);
-            // Select titlelink from web4pro_links as l inner join links_cms_pages as m on l.entity_id=m.link_id where m.page_id=1
-            $idsLinkPage = array();
-            foreach ($linksPages as $linkpage){
-                array_push($idsLinkPage,$linkpage->getLinkId());
-            }
-            $links = $this->modelLinks()->getCollection()->addFieldToFilter('entity_id', array('in' => $idsLinkPage))
-                ->addFieldToFilter('status',1)
-                ->setOrder('sort_order','ASC');
-
-            return $links;
-        }
+        $collection = $this->gridFactory->create()->getCollection();
+        $second_table_name = $this->resource->getTableName('links_cms_pages');
+        $collection->addFieldToSelect(['path','titlelink','status'])
+            ->addFieldToFilter('status', 1)
+            ->addFieldToFilter('second.page_id', $pageId)
+            ->setOrder('sort_order','ASC')
+            ->getSelect()->joinLeft(array('second' => $second_table_name),
+            'main_table.entity_id = second.link_id');//->where('second.page_id = '.$pageId);
+        echo $collection->getSelect()->__toString();
+        exit();
+        return $collection;
 
     }
 }

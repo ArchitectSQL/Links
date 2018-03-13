@@ -30,6 +30,8 @@ class Grid extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
     protected $linksPages;
 
     protected $request;
+    
+    //protected $gridFactory;
     /**
      * Construct.
      *
@@ -42,9 +44,11 @@ class Grid extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
         \Web4pro\Links\Model\ResourceModel\LinksPages $linksPages,
         \Magento\Framework\App\Request\Http $request,
         Js $backendJsHelper
+    
     ) {
         parent::__construct($context);
         $this->linksPages = $linksPages;
+        //$this->gridFactory = $gridFactory;
         $this->request = $request;
         $this->_backendJsHelper = $backendJsHelper;
     }
@@ -108,4 +112,20 @@ class Grid extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
             }
             return parent::_afterSave($object);
         }
+    
+    
+    /*public function getFullCollection($pageId)
+
+    {   $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        $model = $objectManager->create('\Web4pro\Links\Model\Grid');
+        $ddd = $model->getCollection()->addFieldToSelect(['path','titlelink','status'])
+        ->addFieldToFilter('status', 1)->
+        getSelect()->joinLeft(
+            array(
+                'link' => 'links_cms_pages'),
+            'main_table.link_id = link.link_id',
+            array('page_id')
+        )->where('link.page_id = '.$pageId);
+        return $ddd;
+    }*/
 }

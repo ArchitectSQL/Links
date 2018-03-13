@@ -20,11 +20,15 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
     /**
      * Define resource model.
      */
-    protected function _construct()
+
+    protected function _construct(
+    )
     {
         $this->_init(
             'Web4pro\Links\Model\Grid',
             'Web4pro\Links\Model\ResourceModel\Grid'
         );
     }
+    
+
 }
