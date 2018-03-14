@@ -59,7 +59,7 @@ class Grid extends \Magento\Framework\Model\AbstractModel implements GridInterfa
     /**
      * Get Title.
      *
-     * @return varchar
+     * @return string
      */
     public function getTitle()
     {
