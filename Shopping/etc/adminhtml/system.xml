@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="web4proShopping" translate="label" sortOrder="1">
+            <label>Web4pro Shopping</label>
+        </tab>
+        <section id="web4proShoppingSec" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>set Timeout</label>
+            <tab>web4proShopping</tab>
+            <resource>Web4pro_Shopping::shopping_config</resource>
+            <group id="general" translate="lebel" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="display_text" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Set Timeout</label>
+                    <comment>Set time in seconds</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

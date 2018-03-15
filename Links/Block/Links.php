@@ -4,16 +4,29 @@ namespace Web4pro\Links\Block;
 
 class Links extends \Magento\Framework\View\Element\Template
 {
+    /**
+     * @var \Web4pro\Links\Model\GridFactory
+     */
     protected $gridFactory;
-
+    /**
+     * @var \Magento\Cms\Model\PageFactory
+     */
     protected $pageFactory;
-
+    /**
+     * @var \Web4pro\Links\Model\LinksPagesFactory
+     */
     protected $linksPages;
-
+    /**
+     * @var \Magento\Cms\Model\Page
+     */
     protected $page;
-    
+    /**
+     * @var \Magento\Framework\App\RequestInterface
+     */
     public $getRequest;
-
+    /**
+     * @var \Magento\Framework\App\ResourceConnection
+     */
     protected $resource;
 
     public function __construct(
@@ -43,7 +56,10 @@ class Links extends \Magento\Framework\View\Element\Template
             return $pageId;
         }
     }
-    
+
+    /**
+     * @return \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
+     */
     public function outputLinks()
     {
         $pageId = $this->pageId();

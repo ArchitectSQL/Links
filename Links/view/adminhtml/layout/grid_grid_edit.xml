@@ -4,8 +4,7 @@
             <block class="Web4pro\Links\Block\Adminhtml\Grid\Edit" name="add_row"/>
         </referenceContainer>
         <referenceContainer name="left">
-            <block class="Web4pro\Links\Block\Adminhtml\Grid\Edit\Tabs" name="web4pro_links_grid_edit_tabs">
-            </block>
+            <block class="Web4pro\Links\Block\Adminhtml\Grid\Edit\Tabs" name="web4pro_links_grid_edit_tabs"/>
         </referenceContainer>
     </body>
 </page>
