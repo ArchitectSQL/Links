@@ -7,9 +7,13 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\CatalogUrlRewrite\Model\CategoryUrlPathGenerator;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 
+/**
+ * Class ProductUrlPathGenerator
+ * @package Web4pro\Url\Model\CatalogUrlRewrite
+ */
 class ProductUrlPathGenerator extends \Magento\CatalogUrlRewrite\Model\ProductUrlPathGenerator
 {
-    const PRODUCT_PREFIX_ROUTE = 'shop';
+    const PRODUCT_PREFIX_ROUTE = 'shop/';
     const CATEGORY_PREFIX_ROUTE = 'shop/category';
 
     /**
@@ -34,6 +38,7 @@ class ProductUrlPathGenerator extends \Magento\CatalogUrlRewrite\Model\ProductUr
      */
     public function getUrlPath($product , $category = null)
     {
+        //exit();
         $path = $product->getData('url_path');
         //var_dump($path);exit();
         if ($path === null)
@@ -46,7 +51,7 @@ class ProductUrlPathGenerator extends \Magento\CatalogUrlRewrite\Model\ProductUr
             $categoryUrl = str_replace(self::CATEGORY_PREFIX_ROUTE.'/','',$this->categoryUrlPathGenerator->getUrlPath($category));
             $path = $categoryUrl . '/' . $path;
         }
-        var_dump($path);
+        //var_dump($path);
         return self::PRODUCT_PREFIX_ROUTE . $path;
     }
 }
