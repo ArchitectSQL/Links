@@ -7,7 +7,7 @@
  */
 namespace Web4pro\Url\Plugin\Model;
 
-use Web4pro\Url\Model\CatalogUrlRewrite\ProductUrlPathGenerator;
+//use Web4pro\Url\Plugin\Model\CatalogUrlRewrite\ProductUrlPathGenerator;
 
 class CategoryUrlPathGenerator
 {
@@ -18,11 +18,9 @@ class CategoryUrlPathGenerator
      */
     public function afterGetUrlPath(\Magento\CatalogUrlRewrite\Model\CategoryUrlPathGenerator $subject, $path)
     {
-        //var_dump($subject);
-        //var_dump($path);
-        if(strpos($path, ProductUrlPathGenerator::CATEGORY_PREFIX_ROUTE) === false)
-           $path = ProductUrlPathGenerator::CATEGORY_PREFIX_ROUTE . $path;
-        //var_dump($path);//exit();
+
+        if(strpos($path, 'shop/category1/') === false)
+           $path = 'shop/category1/'. $path;
         return $path;
     }
 }
