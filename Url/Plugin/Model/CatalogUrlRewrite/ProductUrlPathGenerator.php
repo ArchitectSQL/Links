@@ -18,8 +18,9 @@ class ProductUrlPathGenerator
     public function afterGetUrlPath(\Magento\CatalogUrlRewrite\Model\ProductUrlPathGenerator $subject,$path)
     {
         $piecesPath = explode("/",$path);
+        //var_dump($piecesPath);
         $pathProduct = array_pop($piecesPath);
-
+            //if($pathProduct !== 'category')
             return 'shop/'. $pathProduct;
     }
 }
