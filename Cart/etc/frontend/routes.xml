@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="standard">
+        <route id="web4pro_cart" frontName="web4pro_cart">
+            <module name="Web4pro_Cart" />
+        </route>
+    </router>
+</config>

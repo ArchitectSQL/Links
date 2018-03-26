@@ -7,7 +7,6 @@
     <type name="Magento\CatalogUrlRewrite\Model\CategoryUrlPathGenerator">
         <plugin name="my_category_url_path_generator" type="Web4pro\Url\Plugin\Model\CategoryUrlPathGenerator" sortOrder="5" />
     </type>
-    <type name="Magento\CatalogUrlRewrite\Model\Product\CategoriesUrlRewriteGenerator">
-        <plugin name="web4pro_my_category_product_path_rewrite" type="Web4pro\Url\Plugin\Model\CatalogUrlRewrite\CategoriesUrlRewriteGenerator" sortOrder="99999"/>
-    </type>
+
 </config>
+
