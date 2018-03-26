@@ -5,6 +5,7 @@ namespace Web4pro\Url\Plugin\Model\CatalogUrlRewrite;
 
 class ProductUrlPathGenerator 
 {
+
     /**
      * @var \Magento\Framework\App\Config\ScopeConfigInterface
      */
@@ -19,6 +20,7 @@ class ProductUrlPathGenerator
      * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      * @param \Magento\Framework\App\Request\Http $request
      */
+
    public function __construct(
        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \Magento\Framework\App\Request\Http $request
@@ -37,10 +39,12 @@ class ProductUrlPathGenerator
         $useIsAnchor = (int)$this->_request->getPost('is_anchor');
         $piecesPath = explode("/",$path);
 
+
         $pathProduct = array_pop($piecesPath);
         $pathCategory = array_pop($piecesPath);
 
         if($useRewriteUrlCategory === 1 && $useIsAnchor === 1 && $pathCategory)
+
         {
             return 'shop/'.$pathCategory.'/'.$pathProduct;
         } else {
