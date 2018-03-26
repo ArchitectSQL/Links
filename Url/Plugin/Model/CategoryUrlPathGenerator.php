@@ -11,6 +11,12 @@ namespace Web4pro\Url\Plugin\Model;
 
 class CategoryUrlPathGenerator
 {
+    /*protected $categoryCollectionFactory;
+    public function __construct (
+                    \Magento\Catalog\Model\ResourceModel\Category\CollectionFactory $categoryCollectionFactory
+    ) {
+        $this->categoryCollectionFactory = $categoryCollectionFactory;
+    }*/
     /**
      * @param \Magento\CatalogUrlRewrite\Model\CategoryUrlPathGenerator $subject
      * @param $path
@@ -18,9 +24,16 @@ class CategoryUrlPathGenerator
      */
     public function afterGetUrlPath(\Magento\CatalogUrlRewrite\Model\CategoryUrlPathGenerator $subject, $path)
     {
+        //var_dump($path);
 
-        if(strpos($path, 'shop/category1/') === false)
-           $path = 'shop/category1/'. $path;
+            if (!empty($path))
+            {
+                if (strpos($path, 'shop/category') === false)
+                {
+                    $path = 'shop/category/' . $path;
+                }
+            }
+        //var_dump($path);
         return $path;
     }
 }
