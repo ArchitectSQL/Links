@@ -1,39 +1,41 @@
 define([
     'jquery',
-    'mage/translate',
-    'jquery/ui',
-    'mage/mage'
+    'jquery/ui'
 ], function($) {
     "use strict";
     $.widget('web4pro.cart', {
         options: {
-            addToCartFieldSelector: '[data-role="cart-item-qty"]',
-            triggerEvent: 'change'
+            triggerEvent: 'change',
+            controller: 'http://developer.loc/web4pro_cart/query/custom'
         },
-
 
         _create: function() {
-            var self = this;
-            if($('[data-role="cart-item-qty"]').change()){
-                    self.ajaxSubmit($(this));
-                }
+            console.log('3333');
+            this._bind();
         },
 
+        _bind: function() {
+            var self = this;
+            self.element.on(self.options.triggerEvent, function() {
+                console.log('2222');
+                self._ajaxSubmit();
 
-        ajaxSubmit: function(form) {
-            console.log(form);
-            $.ajax({
-                url: form.attr('action'),
-                data: this.options.addToCartFieldSelector.serialize(),
+            });
+
+        },
+        _ajaxSubmit: function() {
+            console.log(jQuery('[data-role="cart-item-qty"]').val());
+            console.log('1111');
+            console.log(this.options.controller);
+            jQuery.ajax({
+                url: this.options.controller,
                 type: 'post',
                 dataType: 'json',
-                beforeSend: function() {
-                    console.log('ajax send');
-
-                },
+                data: 'qty='+jQuery('[data-role="cart-item-qty"]').val(),
                 success: function(res) {
+                    alert('ajax send');
                     console.log('ajax success');
-                    console.log(res);
+                    console.log(JSON.stringify(res));
                 }
             });
         }
