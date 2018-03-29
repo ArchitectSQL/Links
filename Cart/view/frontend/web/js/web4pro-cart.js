@@ -6,7 +6,7 @@ define([
     $.widget('web4pro.cart', {
         options: {
             triggerEvent: 'change',
-            controller: 'http://developer.loc/web4pro_cart/query/custom',
+            controller: 'web4pro_cart/query/custom',
             qty: '[data-role="cart-item-qty"]',
             itemId: '.action.action-edit'
         },
@@ -17,9 +17,8 @@ define([
 
         _bind: function() {
             var self = this;
-            self.element.on(self.options.triggerEvent, function() {
                 self._ajaxSubmit();
-            });
+
         },
 
         _ajaxSubmit: function() {
@@ -30,18 +29,24 @@ define([
                 var arrayHerf = editAction.split('/');
                 var blank = arrayHerf.pop();
                 var idItem = arrayHerf.pop();
-                console.log(qty);
-                console.log(idItem);
+                var url = domine + 'web4pro_cart/query/custom';
                 jQuery.ajax({
-                    url: 'http://developer.loc/web4pro_cart/query/custom',
+                    url: url,
                     type: 'post',
                     dataType: 'json',
                     data: {qty: qty,idItem: idItem},
                     success: function(res) {
                         console.log('ajax success');
-                        var price = JSON.stringify(res);
-                        var totalPrice = $(that).closest('tbody.cart.item').find('.subtotal span.price');
-                        totalPrice.text('$' + price);
+                        var price = /*JSON.stringify(*/res/*)*/;
+                        console.log(price);
+                        var totalPrice = jQuery(that).closest('tbody.cart.item').find('.subtotal span.price');
+                        var summaryTotalPrice = jQuery('.sub .amount span.price');
+                        var summaryQtyProducts = jQuery('.qty .counter-number');
+                        totalPrice.text('$' + price['data']['priceTotal']);
+                        summaryTotalPrice.text('$' + price['data']['grandTotal']);
+                        summaryQtyProducts.text(price['data']['summaryQtyProducts']);
+
+                        $("input[data-cart-item=" + price['data']['itemIdMinicart'] + "]").val(qty);
                     }
                 });
             });

@@ -25,16 +25,30 @@ class Custom extends \Magento\Framework\App\Action\Action
      * @var ResultFactory
      */
     protected $resultJsonFactory;
-    
+    protected $_objectManager;
+
+    protected $_shipconfig;
+    /**
+     * Custom constructor.
+     * @param Context $context
+     * @param ResultFactory $resultJsonFactory
+     * @param \Magento\Quote\Api\CartRepositoryInterface $quoteRepository
+     * @param \Magento\Checkout\Model\Session $checkoutSession
+     * @param \Magento\Checkout\Model\Cart $cart
+     */
     public function __construct(
         Context  $context,
         ResultFactory $resultJsonFactory,
         \Magento\Quote\Api\CartRepositoryInterface $quoteRepository,
         \Magento\Checkout\Model\Session $checkoutSession,
-        \Magento\Checkout\Model\Cart $cart
+        \Magento\Checkout\Model\Cart $cart,
+        \Magento\Framework\ObjectManagerInterface $objectManager,
+        \Magento\Shipping\Model\Config $shipconfig
 
     ) {
         $this->cart = $cart;
+        $this->_shipconfig = $shipconfig;
+        $this->_objectManager = $objectManager;
         $this->_checkoutSession = $checkoutSession;
         $this->_quoteRepository = $quoteRepository;
         $this->resultJsonFactory = $resultJsonFactory;
@@ -47,20 +61,34 @@ class Custom extends \Magento\Framework\App\Action\Action
     public function execute()
     {
         $priceTotal = null;
-        $itemId = (int)$this->getRequest()->getPost('idItem');
+        $grandTotal = null;
+        $summaryQtyProducts = null;
+        $itemIdMinicart = null;
+
+        $idProduct = (int)$this->getRequest()->getPost('idItem');
         $qty = (int)$this->getRequest()->getPost('qty');
 
-        $cartitems = $this->cart->getItems();
-        foreach ($cartitems as $cartitem) {
-            if ($cartitem->getProduct()->getId() == $itemId)
+        $cartItems = $this->cart->getItems();
+        foreach ($cartItems as $cartItem) {
+
+            if ($cartItem->getProduct()->getId() == $idProduct)
             {
-                $price = (int)$cartitem->getPrice();
+                $price = (int)$cartItem->getPrice();
                 $priceTotal = $price * $qty;
-                $cartitem->setQty($qty)->setRowTotal($priceTotal)->save();
+                $cartItem->setQty($qty)->setRowTotal($priceTotal)->save();
             }
+            $summaryQtyProducts += $cartItem->getQty();
+            $grandTotal += $cartItem->getRowTotal();
         }
-        //$resultJson = $this->resultJsonFactory->create(ResultFactory::TYPE_JSON);
-        echo $priceTotal;
-        
+        $data = [
+                    'priceTotal'        => $priceTotal,
+                    'grandTotal'        => $grandTotal,
+                    'summaryQtyProducts'=> $summaryQtyProducts,
+                ];
+
+        $resultJson = $this->resultJsonFactory->create(ResultFactory::TYPE_JSON);
+        $resultJson->setData(['data' => $data]);
+        return $resultJson;
+
     }
 }
