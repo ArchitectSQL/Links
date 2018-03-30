@@ -1,6 +1,9 @@
 define([
     'jquery',
-    'jquery/ui'
+    'jquery/ui',
+    'Magento_Checkout/js/model/resource-url-manager',
+    'mage/storage',
+    'Magento_Checkout/js/model/quote'
 ], function($) {
     "use strict";
     $.widget('web4pro.cart', {
@@ -47,6 +50,8 @@ define([
                         summaryQtyProducts.text(price['data']['summaryQtyProducts']);
 
                         $("input[data-cart-item=" + price['data']['itemIdMinicart'] + "]").val(qty);
+
+                        
                     }
                 });
             });

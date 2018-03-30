@@ -73,6 +73,7 @@ class Custom extends \Magento\Framework\App\Action\Action
 
             if ($cartItem->getProduct()->getId() == $idProduct)
             {
+                $itemIdMinicart = $cartItem->getItemId();
                 $price = (int)$cartItem->getPrice();
                 $priceTotal = $price * $qty;
                 $cartItem->setQty($qty)->setRowTotal($priceTotal)->save();
@@ -80,10 +81,12 @@ class Custom extends \Magento\Framework\App\Action\Action
             $summaryQtyProducts += $cartItem->getQty();
             $grandTotal += $cartItem->getRowTotal();
         }
+
         $data = [
                     'priceTotal'        => $priceTotal,
                     'grandTotal'        => $grandTotal,
                     'summaryQtyProducts'=> $summaryQtyProducts,
+                    'itemIdMinicart'=> $itemIdMinicart
                 ];
 
         $resultJson = $this->resultJsonFactory->create(ResultFactory::TYPE_JSON);
