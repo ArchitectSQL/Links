@@ -3,31 +3,32 @@ namespace Web4pro\Cart\Controller\Query;
 
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\Controller\ResultFactory;
+use Magento\Framework\App\ObjectManager;
+use Magento\Quote\Model\Quote\Address\RateCollectorInterface;
+use Magento\Quote\Model\Quote\Address\RateRequestFactory;
+use Magento\Sales\Model\Order\Shipment;
+
 class Custom extends \Magento\Framework\App\Action\Action
 {
-
-    /**
-     * @var \Magento\Quote\Api\CartRepositoryInterface
-     */
-    protected $_quoteRepository;
-    
     /**
      * @var \Magento\Checkout\Model\Session
      */
     protected $_checkoutSession;
-
     /**
      * @var \Magento\Checkout\Model\Cart
      */
     protected $cart;
-
     /**
      * @var ResultFactory
      */
     protected $resultJsonFactory;
-    protected $_objectManager;
 
-    protected $_shipconfig;
+    /**
+     * @var \Magento\Shipping\Model\Shipping
+     */
+    protected $_shipping;
+
+    protected $_checkoutCart;
     /**
      * Custom constructor.
      * @param Context $context
@@ -39,24 +40,23 @@ class Custom extends \Magento\Framework\App\Action\Action
     public function __construct(
         Context  $context,
         ResultFactory $resultJsonFactory,
-        \Magento\Quote\Api\CartRepositoryInterface $quoteRepository,
         \Magento\Checkout\Model\Session $checkoutSession,
         \Magento\Checkout\Model\Cart $cart,
-        \Magento\Framework\ObjectManagerInterface $objectManager,
-        \Magento\Shipping\Model\Config $shipconfig
+        \Magento\Shipping\Model\Shipping $shipping,
+        \Magento\Checkout\Controller\Cart\UpdatePost $checkoutCart
 
     ) {
+        $this->_checkoutCart = $checkoutCart;
+        $this->_shipping = $shipping;
         $this->cart = $cart;
-        $this->_shipconfig = $shipconfig;
-        $this->_objectManager = $objectManager;
         $this->_checkoutSession = $checkoutSession;
-        $this->_quoteRepository = $quoteRepository;
         $this->resultJsonFactory = $resultJsonFactory;
         parent::__construct($context);
     }
 
     /**
-     * @return string
+     * @param \Magento\Framework\Controller\ResultInterface
+     * @return array
      */
     public function execute()
     {
@@ -64,13 +64,14 @@ class Custom extends \Magento\Framework\App\Action\Action
         $grandTotal = null;
         $summaryQtyProducts = null;
         $itemIdMinicart = null;
+        $shippingPrice = null;
+        $orderTotal = null;
 
-        $idProduct = (int)$this->getRequest()->getPost('idItem');
-        $qty = (int)$this->getRequest()->getPost('qty');
+        $idProduct = (int)$this->getRequest()->getPost('item_id');
+        $qty = (int)$this->getRequest()->getPost('item_qty');
 
         $cartItems = $this->cart->getItems();
         foreach ($cartItems as $cartItem) {
-
             if ($cartItem->getProduct()->getId() == $idProduct)
             {
                 $itemIdMinicart = $cartItem->getItemId();
@@ -81,12 +82,21 @@ class Custom extends \Magento\Framework\App\Action\Action
             $summaryQtyProducts += $cartItem->getQty();
             $grandTotal += $cartItem->getRowTotal();
         }
+        $this->_checkoutCart->_updateShoppingCart();
+        $session = $this->_checkoutSession;
+        $address = $session->getQuote()->getShippingAddress();
+
+        $shippingTax = $this->_shipping->collectRatesByAddress($address)->getResult();
+        $shippingPrice = $shippingTax->_rates[0]->getPrice();
+        $orderTotal = $grandTotal + $shippingPrice;
 
         $data = [
-                    'priceTotal'        => $priceTotal,
-                    'grandTotal'        => $grandTotal,
+                    'priceTotal'        => sprintf("%.2f" , $priceTotal),
+                    'grandTotal'        => sprintf("%.2f" , $grandTotal),
                     'summaryQtyProducts'=> $summaryQtyProducts,
-                    'itemIdMinicart'=> $itemIdMinicart
+                    'itemIdMinicart'    => $itemIdMinicart,
+                    'shippingPrice'     => sprintf("%.2f" , $shippingPrice),
+                    'orderTotal'        => sprintf("%.2f" , $orderTotal)
                 ];
 
         $resultJson = $this->resultJsonFactory->create(ResultFactory::TYPE_JSON);

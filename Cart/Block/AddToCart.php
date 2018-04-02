@@ -19,8 +19,8 @@ class AddToCart extends \Magento\Framework\View\Element\Template
     public function getBaseUrlForAddToCart()
     {
         $storeManager = $this->_objectManager->get('\Magento\Store\Model\StoreManagerInterface');
-        $domine = $storeManager->getStore()->getBaseUrl();
-        return $domine;
+        $domaine = $storeManager->getStore()->getBaseUrl();
+        return $domaine;
     }
 
 }
