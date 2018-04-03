@@ -61,11 +61,11 @@ class Custom extends \Magento\Framework\App\Action\Action
     public function execute()
     {
         $priceTotal = null;
-        $grandTotal = null;
+        //$grandTotal = null;
         $summaryQtyProducts = null;
         $itemIdMinicart = null;
-        $shippingPrice = null;
-        $orderTotal = null;
+        ///$shippingPrice = null;
+        //$orderTotal = null;
 
         $idProduct = (int)$this->getRequest()->getPost('item_id');
         $qty = (int)$this->getRequest()->getPost('item_qty');
@@ -80,23 +80,26 @@ class Custom extends \Magento\Framework\App\Action\Action
                 $cartItem->setQty($qty)->setRowTotal($priceTotal)->save();
             }
             $summaryQtyProducts += $cartItem->getQty();
-            $grandTotal += $cartItem->getRowTotal();
+            //$grandTotal += $cartItem->getRowTotal();
         }
         $this->_checkoutCart->_updateShoppingCart();
+
+
+        
         $session = $this->_checkoutSession;
         $address = $session->getQuote()->getShippingAddress();
 
         $shippingTax = $this->_shipping->collectRatesByAddress($address)->getResult();
         $shippingPrice = $shippingTax->_rates[0]->getPrice();
-        $orderTotal = $grandTotal + $shippingPrice;
+        //$orderTotal = $grandTotal + $shippingPrice;
 
         $data = [
                     'priceTotal'        => sprintf("%.2f" , $priceTotal),
-                    'grandTotal'        => sprintf("%.2f" , $grandTotal),
+                    //'grandTotal'        => sprintf("%.2f" , $grandTotal),
                     'summaryQtyProducts'=> $summaryQtyProducts,
                     'itemIdMinicart'    => $itemIdMinicart,
-                    'shippingPrice'     => sprintf("%.2f" , $shippingPrice),
-                    'orderTotal'        => sprintf("%.2f" , $orderTotal)
+                    'shippingPrice'     => sprintf("%.2f" , $shippingPrice)
+                    //'orderTotal'        => sprintf("%.2f" , $orderTotal)
                 ];
 
         $resultJson = $this->resultJsonFactory->create(ResultFactory::TYPE_JSON);

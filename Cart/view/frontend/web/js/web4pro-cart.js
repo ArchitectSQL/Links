@@ -1,30 +1,41 @@
 define([
-        'jquery',
-        'Magento_Checkout/js/model/quote',
-        'Magento_Checkout/js/model/resource-url-manager',
-        'mage/storage',
-        'Magento_Checkout/js/model/full-screen-loader',
-        'Magento_Checkout/js/action/set-shipping-information',
-        'Magento_Checkout/js/action/get-totals',
-        'jquery/ui','mage/cookies'
-    ],
-    function($, quote, resourceUrlManager, storage, fullScreenLoader, setShipping, getTotals) {
+    'jquery',
+    'Magento_Checkout/js/model/quote',
+    'Magento_Checkout/js/model/shipping-service',
+    'Magento_Checkout/js/model/shipping-rate-registry',
+    'Magento_Checkout/js/model/shipping-rate-processor/customer-address',
+    'Magento_Checkout/js/model/shipping-rate-processor/new-address',
+    'Magento_Checkout/js/action/set-shipping-information',
+    'Magento_Customer/js/customer-data',
+    'Magento_Checkout/js/model/cart/totals-processor/default',
+    'jquery/ui',
+    'mage/cookies'
+], function($, quote, shippingService, rateRegistry, customerAddressProcessor, newAddressProcessor, setShipping, customerData, totalsProcessor) {
     "use strict";
+       
     $.widget('web4pro.cart', {
         options: {
             triggerEvent: 'change',
             controller: 'checkout/query/custom',
             qty: '[data-role="cart-item-qty"]',
-            itemId: '.action.action-edit'
+            itemId: '.action.action-edit',
+            minicart: '.update-cart-item'
         },
 
         _create: function() {
             this._bind();
+            this._bindd();
         },
 
         _bind: function() {
             var self = this;
             self._ajaxSubmit();
+            self._bindd();
+
+        },
+        _bindd: function() {
+            var self = this;
+            self._minicart();
 
         },
 
@@ -44,56 +55,49 @@ define([
                 };
                 console.log(url);
                 jQuery.ajax({
-                    url: '/checkout/sidebar/updateItemQty',
+                    url: url,
                     type: 'post',
                     dataType: 'json',
-                    data: {item_qty: qty,item_id: idItem,cart: idItemCart},
+                    data: {item_qty: qty,item_id: idProduct,cart: idItemCart},
                     success: function(res) {
                         setShipping();
-                        getTotals();
-                        //console.log(getTotals());
-                        var result = getTotals();
 
-                        console.log(result);
-                        /*jQuery.ajax({
-                            url: url,
-                            type: 'post',
-                            dataType: 'json',
-                            data: {item_qty: qty,item_id: idItem,cart: idItemCart},
-                            success: function(res) {
-                                
+                        var address = quote.shippingAddress();
+                        rateRegistry.set(address.getCacheKey(), null);
+                        var type = quote.shippingAddress().getType();
+                        if (type == 'new-customer-address')
+                        {
+                            newAddressProcessor.getRates(address);
+                        }
+                        totalsProcessor.estimateTotals(customerData.get('checkout-data')());
 
-                        var price = JSON.stringify(res);
-                        console.log(price);
-                        var totalPrice = jQuery(that).closest('tbody.cart.item').find('.subtotal span.price');*/
-                       // var summaryQtyProducts = jQuery('.qty .counter-number');
+                        //var price = JSON.stringify(res);
+                        console.log(res);
+                        var totalPrice = jQuery(that).closest('tbody.cart.item').find('.subtotal span.price');
+                        var summaryQtyProducts = jQuery('.qty .counter-number');
 
-                        /*var summaryTotalPrice = jQuery('.cart-summary .sub .amount>.price');
-                        var shippingPrice = jQuery('.cart-summary .shipping .amount>.price');
-                        var orderTotal = jQuery('.cart-summary .grand .price');
-                        var tax = jQuery('#co-shipping-method-form .item-options .price>.price');
-                        summaryTotalPrice.text('$' + window.checkoutConfig.totalsData.subtotal);
-
-
-
-                        totalPrice.text('$' + price['data']['priceTotal']);
-                         summaryTotalPrice.text('$' + price['data']['grandTotal']);*/
-                        // summaryQtyProducts.text(result.responseJSON.items_qty);
-                         /*shippingPrice.text('$' + price['data']['shippingPrice']);
-                         orderTotal.text('$' + price['data']['orderTotal']);
-                         tax.text('$' + price['data']['shippingPrice']);
-                         console.log(price['data']['shippingPrice']);
-                         console.log(price['data']['orderTotal']);
-                         console.log(shippingPrice);
-                         console.log(orderTotal);
-                         $("input[data-cart-item=" + price['data']['itemIdMinicart'] + "]").val(qty);
-
-                            }
-                        });*/
+                        //var tax = jQuery('#co-shipping-method-form .item-options .price>.price');
+                        totalPrice.text('$' + res['data']['priceTotal']);
+                        summaryQtyProducts.text(res['data']['summaryQtyProducts']);
+                        //tax.text('$' + res['data']['shippingPrice']);
+                         $("input[data-cart-item=" + res['data']['itemIdMinicart'] + "]").val(qty);
                     }
                 });
             });
+            
+            },
+        _minicart : function () {
+            alert('yeap111');
+            console.log('lost');
+            jQuery(this.options.minicart).on('click',function() {
+                //jQuery(this).trigger('click');
+
+                console.log('lllllllll');
+
+                alert('yeap');
+            });
         },
+
 
         _updateOrderHandler: function () {
             $(this).trigger('change');
