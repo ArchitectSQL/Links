@@ -42,7 +42,7 @@ class InstallData implements InstallDataInterface
         // more used_in_forms ['adminhtml_checkout','adminhtml_customer','adminhtml_customer_address','customer_account_edit','customer_address_edit','customer_register_address']
         $sampleAttribute->setData(
             'used_in_forms',
-            ['adminhtml_checkout','adminhtml_customer','adminhtml_customer_address','customer_account_edit','customer_address_edit','customer_register_address']
+            ['adminhtml_checkout','checkout_register','adminhtml_customer','adminhtml_customer_address','customer_register_address','customer_address_edit']
 
 
         );
