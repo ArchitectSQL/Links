@@ -1,6 +1,6 @@
 <?php
 
-namespace Web4pro\Ajaxcart\Observer\Order;
+namespace Web4pro\Address\Observer\Order;
 
 class AddressCollectionLoad implements \Magento\Framework\Event\ObserverInterface
 {
@@ -13,8 +13,7 @@ class AddressCollectionLoad implements \Magento\Framework\Event\ObserverInterfac
 
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
-        if($collection = $observer->getEvent()->getOrderAddressCollection())
-        {
+        if($collection = $observer->getEvent()->getOrderAddressCollection()){
             $this->_joinProcessor->process($collection);
         }
     }
