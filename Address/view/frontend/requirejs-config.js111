@@ -1,0 +1,12 @@
+var config = {
+    config: {
+        mixins: {
+            'Magento_Checkout/js/action/set-shipping-information': {
+                'Custom_ExtraAddress/js/action/set-shipping-information-mixin': true
+            },
+            'Magento_Checkout/js/model/place-order': {
+                'Custom_ExtraAddress/js/model/place-order-mixin': true
+            }
+        }
+    }
+};

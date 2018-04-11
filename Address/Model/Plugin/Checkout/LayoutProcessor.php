@@ -3,6 +3,7 @@
 namespace Web4pro\Address\Model\Plugin\Checkout;
 
 use Web4pro\Address\Model\Address\TypeFactory;
+//use Magento\Checkout\Block\Checkout\LayoutProcessor;
 
 class LayoutProcessor
 {
@@ -38,7 +39,8 @@ class LayoutProcessor
             'id' => 'type'
         ];
 
-        $configuration = $jsLayout['components']['checkout']['children']['steps']['children']['billing-step']['children']['payment']['children']['payments-list']['children'];
+        $configuration = $jsLayout['components']['checkout']['children']['steps']['children']
+        ['billing-step']['children']['payment']['children']['payments-list']['children'];
         foreach ($configuration as $paymentGroup => $groupConfig) {
             if (isset($groupConfig['component']) AND $groupConfig['component'] === 'Magento_Checkout/js/view/billing-address') {
 
