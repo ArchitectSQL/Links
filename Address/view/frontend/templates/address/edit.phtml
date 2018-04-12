@@ -121,6 +121,12 @@
                        class="input-text validate-zip-international <?= $block->escapeHtmlAttr($this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('postcode')) ?>">
             </div>
         </div>
+<!--        <div class="field country required">-->
+<!--            <label class="label" for="country"><span>--><?//= $block->escapeHtml(__('Country')) ?><!--</span></label>-->
+<!--            <div class="control">-->
+<!--                --><?//= $block->getCountryHtmlSelect() ?>
+<!--            </div>-->
+<!--        </div>-->
         <?php if ($block->isDefaultBilling()): ?>
             <div class="message info">
                 <span><?= $block->escapeHtml(__("It's a default billing address.")) ?></span>

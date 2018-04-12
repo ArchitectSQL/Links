@@ -21,7 +21,7 @@ class LayoutProcessor
     ) {
         $options = $this->type->create();
         $jsLayout['components']['checkout']['children']['steps']['children']['shipping-step']['children']
-        ['shippingAddress']['children']['shipping-address-fieldset']['children']['custom_field'] = [
+        ['shippingAddress']['children']['shipping-address-fieldset']['children']['type'] = [
             'component' => 'Magento_Ui/js/form/element/select',
             'config' => [
                 'customScope' => 'shippingAddress.custom_attributes',
@@ -30,7 +30,7 @@ class LayoutProcessor
                 'options' => $options->getAllOptions(),
                 'id' => 'type'
             ],
-            'dataScope' => 'shippingAddress.custom_attributes.custom_field',
+            'dataScope' => 'shippingAddress.custom_attributes.type',
             'label' => 'Address Type',
             'provider' => 'checkoutProvider',
             'visible' => true,
@@ -54,7 +54,7 @@ class LayoutProcessor
                         'options' => $options->getAllOptions(),
                         'id' => 'type'
                     ],
-                    'dataScope' => 'billingAddress.custom_attributes.custom_field',
+                    'dataScope' => 'billingAddress.custom_attributes.type',
                     'label' => 'Address Type',
                     'provider' => 'checkoutProvider',
                     'visible' => true,
