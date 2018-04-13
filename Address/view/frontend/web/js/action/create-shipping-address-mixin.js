@@ -7,16 +7,12 @@ define([
 
     return function (setShippingInformationAction) {
         return wrapper.wrap(setShippingInformationAction, function (originalAction, messageContainer) {
-
-            var shippingAddress = quote.shippingAddress();
             debugger;
-            if (shippingAddress['extension_attributes'] === undefined) {
-                shippingAddress['extension_attributes'] = {};
+            if (messageContainer.custom_attributes != undefined) {
+                $.each(messageContainer.custom_attributes , function( key, value ) {
+                    messageContainer['custom_attributes'][key] = {'attribute_code':key,'value':value};
+                });
             }
-
-            var type;
-            type = shippingAddress.customAttributes.type;
-            shippingAddress.extension_attributes['type'] = type;
 
             return originalAction(messageContainer);
         });
