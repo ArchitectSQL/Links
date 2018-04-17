@@ -3,10 +3,11 @@
     <type name="Magento\Checkout\Block\Checkout\LayoutProcessor">
         <plugin name="add_custom_field_checkout_form" type="Web4pro\Address\Model\Plugin\Checkout\LayoutProcessor" sortOrder="100"/>
     </type>
-    <!--<type name="Magento\Framework\Api\DataObjectHelper">
+    <type name="Magento\Framework\Api\DataObjectHelper">
         <plugin name="move-extension-attributes" type="Web4pro\Address\Model\Plugin\General" sortOrder="20"/>
-    </type>-->
+    </type>
     <type name="Magento\Sales\Block\Adminhtml\Order\View\Info">
         <plugin name="render-type" type="Web4pro\Address\Model\Plugin\General" sortOrder="20"/>
     </type>
+    <!--<preference for="Magento\Framework\Api\DataObjectHelper" type="Web4pro\Address\Model\Framework\DataObjectHelper"/>-->
 </config>

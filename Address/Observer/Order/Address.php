@@ -16,9 +16,10 @@ class Address implements \Magento\Framework\Event\ObserverInterface
         if($address = $observer->getEvent()->getAddress()){
             if($attributes = $address->getExtensionAttributes()){
                 $customAddress = $this->_objectManager->create('\Web4pro\Address\Model\Order\Address');
-                $customAddress->setType($attributes->getType())->setId($address->getId())->save();
+                $customAddress->setType($attributes->getType())->setEntityId($address->getId())->save();
             }
         }
     }
+
 
 }

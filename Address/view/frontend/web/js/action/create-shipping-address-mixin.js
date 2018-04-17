@@ -7,11 +7,16 @@ define([
 
     return function (setShippingInformationAction) {
         return wrapper.wrap(setShippingInformationAction, function (originalAction, messageContainer) {
-            debugger;
-            if (messageContainer.custom_attributes != undefined) {
+            
+            if (messageContainer.custom_attributes.type.value == undefined) {
                 $.each(messageContainer.custom_attributes , function( key, value ) {
-                    messageContainer['custom_attributes'][key] = {'attribute_code':key,'value':value};
+                    messageContainer['custom_attributes']['type'] = {'attribute_code':key,'value':value};
                 });
+
+                   /* messageContainer['custom_attributes'][key] = {
+                        'attribute_code':  messageContainer['custom_attributes'][key],
+                        'value':  messageContainer['custom_attributes'][value]
+                    };*/
             }
 
             return originalAction(messageContainer);
