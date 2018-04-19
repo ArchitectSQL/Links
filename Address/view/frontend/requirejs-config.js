@@ -17,5 +17,16 @@ var config = {
                 'Web4pro_Address/js/action/set-billing-address-mixin': true
             }
         }
+    },
+    map: {
+        '*': {
+            "Magento_Checkout/js/view/shipping-address/address-renderer/default":
+                "Web4pro_Address/js/view/shipping-address/address-renderer/default-override",
+            "Magento_Checkout/js/view/shipping-information/address-renderer/default":
+                "Web4pro_Address/js/view/shipping-information/address-renderer/default",
+            "Magento_Checkout/js/view/billing-address":
+                "Web4pro_Address/js/view/billing-address"
+            
+        }
     }
 };

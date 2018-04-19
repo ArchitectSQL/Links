@@ -19,6 +19,13 @@ class LayoutProcessor
         \Magento\Checkout\Block\Checkout\LayoutProcessor $subject,
         array  $jsLayout
     ) {
+        $select = [
+            ['key' => 0,'value' => 'Please Select'],
+            ['key' => 1,'value' => 'Residence'],
+            ['key' => 2,'value' => 'Business']
+        ];
+
+
         $options = $this->type->create();
         $jsLayout['components']['checkout']['children']['steps']['children']['shipping-step']['children']
         ['shippingAddress']['children']['shipping-address-fieldset']['children']['type'] = [
@@ -38,7 +45,13 @@ class LayoutProcessor
             'sortOrder' => 250,
             'id' => 'type'
         ];
+        /*$jsLayout['component']['checkout']['children']['steps']['children']['shipping-step']['children']
+        ['shippingAddress']['children']['address-list']['children'][0] = [
+            'config' => [
 
+                'customSelect' => $select
+            ]
+        ];*/
         $configuration = $jsLayout['components']['checkout']['children']['steps']['children']
         ['billing-step']['children']['payment']['children']['payments-list']['children'];
         foreach ($configuration as $paymentGroup => $groupConfig) {
@@ -53,6 +66,7 @@ class LayoutProcessor
                         'elementTmpl' => 'ui/form/element/select',
                         'options' => $options->getAllOptions(),
                         'id' => 'type'
+
                     ],
                     'dataScope' => 'billingAddress.custom_attributes.type',
                     'label' => 'Address Type',

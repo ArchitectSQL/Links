@@ -48,6 +48,6 @@ class Edit extends \Magento\Customer\Block\Address\Edit
 
     public function getAddressType()
     {
-        return $this->_typeAddress->getAttributeArray();
+        return $this->_typeAddress->getAllOptions();
     }
 }

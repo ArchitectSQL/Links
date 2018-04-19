@@ -132,8 +132,8 @@
             <div class="control">
                 <select id="type_address_id" name="type"
                         title="<?= $block->escapeHtmlAttr(__('Type Address')) ?>">
-                    <?php foreach ($block->getAddressType() as $key => $value){ ?>
-                        <option value="<?= $value ?>"><?= $block->escapeHtml(__($key)) ?></option>
+                    <?php foreach ($block->getAddressType() as $object){ ?>
+                        <option value="<?= $object['value'] ?>"><?= $block->escapeHtml(__($object['label'])) ?></option>
                     <?php } ?>
                 </select>
             </div>
