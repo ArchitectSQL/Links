@@ -24,7 +24,6 @@ define([
 
         /** @inheritdoc */
         initObservable: function () {
-
             this._super();
             this.isSelected = ko.computed(function () {
                 var isSelected = false,
@@ -33,7 +32,6 @@ define([
                 if (shippingAddress) {
                     isSelected = shippingAddress.getKey() == this.address().getKey(); //eslint-disable-line eqeqeq
                 }
-                
                 return isSelected;
             }, this);
 
@@ -53,17 +51,19 @@ define([
             selectShippingAddressAction(this.address());
             checkoutData.setSelectedShippingAddress(this.address().getKey());
         },
-
-        getType: function (id) {
-            
-            var valueType;
-            $.each(window.checkoutConfig.foo, function(index,value) {
-                if(id == index) {
-                    valueType = value;
+        
+        /**
+         * @param {String} typeAddressId
+         * @return {String}
+         */
+        getType:function(typeAddressId){
+            var val;
+            $.each(window.checkoutConfig.type, function(index, value ) {
+                if (index == typeAddressId){
+                    val = value;
                 }
             });
-            console.log(valueType);
-            return valueType;
+            return val;
         },
 
         /**

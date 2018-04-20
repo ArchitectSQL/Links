@@ -5,7 +5,7 @@
     <body>
         <referenceContainer name="content">
             <referenceBlock name="customer_address_edit" remove="true"/>
-            <block class="Web4pro\Address\Block\Address\Edit" name="extra_address_edit" template="address/edit.phtml" cacheable="false"/>
+            <block class="Custom\ExtraAddress\Block\Address\Edit" name="extra_address_edit" template="address/edit.phtml" cacheable="false"/>
         </referenceContainer>
     </body>
 </page>

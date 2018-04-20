@@ -21,5 +21,4 @@ class Address implements \Magento\Framework\Event\ObserverInterface
         }
     }
 
-
 }

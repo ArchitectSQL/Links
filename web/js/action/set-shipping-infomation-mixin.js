@@ -14,7 +14,7 @@ define([
             if (shippingAddress['extension_attributes'] === undefined) {
                 shippingAddress['extension_attributes'] = {};
             }
-            debugger;
+ 
             shippingAddress['extension_attributes']['type'] = shippingAddress.customAttributes['type'];
             // pass execution to original action ('Magento_Checkout/js/action/set-shipping-information')
             return originalAction();

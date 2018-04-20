@@ -9,7 +9,7 @@ use Magento\Framework\App\ObjectManager;
 class Edit extends \Magento\Customer\Block\Address\Edit
 {
     protected $_typeAddress;
-
+    
     private $attributeChecker;
 
     public function __construct(
@@ -48,6 +48,6 @@ class Edit extends \Magento\Customer\Block\Address\Edit
 
     public function getAddressType()
     {
-        return $this->_typeAddress->getAllOptions();
+        return $this->_typeAddress->getAttributeArray();
     }
 }

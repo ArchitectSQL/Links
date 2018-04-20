@@ -1,13 +1,8 @@
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
-
 define([
     'jquery',
     'uiComponent',
     'Magento_Customer/js/customer-data'
-], function ($,Component, customerData) {
+], function ($, Component, customerData) {
     'use strict';
 
     var countryData = customerData.get('directory-data');
@@ -16,17 +11,21 @@ define([
         defaults: {
             template: 'Web4pro_Address/shipping-information/address-renderer/default'
         },
-        getType: function (id) {
-         
-            console.log(this.address().customAttributes);
-            var valueType;
-            $.each(window.checkoutConfig.foo, function(index,value) {
-                if(id == index) {
-                    valueType = value;
+        
+        /**
+         * @param {String} typeAddressId
+         * @return {String}
+         */
+        getType:function(typeAddressId){
+            var val;
+            $.each(window.checkoutConfig.type, function(index, value ) {
+                if (index == typeAddressId){
+                    val = value;
                 }
             });
-            return valueType;
+            return val;
         },
+
         /**
          * @param {*} countryId
          * @return {String}

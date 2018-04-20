@@ -18,4 +18,3 @@ class AddressCollectionLoad implements \Magento\Framework\Event\ObserverInterfac
         }
     }
 }
-

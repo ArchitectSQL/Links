@@ -26,12 +26,6 @@ define([
                         billingAddress['extension_attributes'][key] = value;
                     });
                 }
-                if (messageContainer.custom_attributes.type.value == undefined) {
-                    $.each(messageContainer.custom_attributes , function( key, value ) {
-                        messageContainer['custom_attributes']['type'] = {'attribute_code':key,'value':value};
-                    });
-                }
-
             }
             return originalAction(messageContainer);
         });

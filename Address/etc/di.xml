@@ -1,13 +1,11 @@
-<?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <type name="Magento\Checkout\Block\Checkout\LayoutProcessor">
         <plugin name="add_custom_field_checkout_form" type="Web4pro\Address\Model\Plugin\Checkout\LayoutProcessor" sortOrder="100"/>
     </type>
     <type name="Magento\Framework\Api\DataObjectHelper">
-        <plugin name="move-extension-attributes" type="Web4pro\Address\Model\Plugin\General" sortOrder="20"/>
+        <plugin name="custom_exten_attributes" type="Web4pro\Address\Model\Plugin\General" sortOrder="100"/>
     </type>
     <type name="Magento\Sales\Block\Adminhtml\Order\View\Info">
-        <plugin name="render-type" type="Web4pro\Address\Model\Plugin\General" sortOrder="20"/>
+        <plugin name="render_type" type="Web4pro\Address\Model\Plugin\FormatterAddress" sortOrder="100"/>
     </type>
-    <!--<preference for="Magento\Framework\Api\DataObjectHelper" type="Web4pro\Address\Model\Framework\DataObjectHelper"/>-->
 </config>
