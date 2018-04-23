@@ -12,9 +12,9 @@ class InstallSchema implements InstallSchemaInterface
     {
         $installer = $setup;
         $installer->startSetup();
-        if (!$installer->tableExists('mgcustom_quote_address')) {
+        if (!$installer->tableExists('web4pro_quote_address')) {
             $table = $installer->getConnection()->newTable(
-                $installer->getTable('mgcustom_quote_address')
+                $installer->getTable('web4pro_quote_address')
             )
                 ->addColumn(
                     'address_id',
@@ -40,9 +40,9 @@ class InstallSchema implements InstallSchemaInterface
             $installer->getConnection()->createTable($table);
         }
 
-        if (!$installer->tableExists('mgcustom_order_address')) {
+        if (!$installer->tableExists('web4pro_order_address')) {
             $table = $installer->getConnection()->newTable(
-                $installer->getTable('mgcustom_order_address')
+                $installer->getTable('web4pro_order_address')
             )
                 ->addColumn(
                     'entity_id',

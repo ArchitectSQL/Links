@@ -6,6 +6,6 @@ class Address extends \Magento\Framework\Model\AbstractModel
 {
     protected function _construct()
     {
-        $this->_init('Web4pro\Addresss\Model\Quote\ResourceModel\Address');
+        $this->_init('Web4pro\Address\Model\Quote\ResourceModel\Address');
     }
 }

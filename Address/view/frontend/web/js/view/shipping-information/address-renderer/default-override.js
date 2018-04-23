@@ -17,6 +17,7 @@ define([
          * @return {String}
          */
         getType:function(typeAddressId){
+            debugger;
             var val;
             $.each(window.checkoutConfig.type, function(index, value ) {
                 if (index == typeAddressId){
