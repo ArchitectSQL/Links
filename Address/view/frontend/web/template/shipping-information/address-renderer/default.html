@@ -7,5 +7,11 @@
 <!-- ko if: (address().telephone) -->
 <a data-bind="text: address().telephone, attr: {'href': 'tel:' + address().telephone}"></a>
 <!-- /ko --><br/>
-<!-- ko text: getType(address().customAttributes.type.value) --><!-- /ko --><br/>
+<!-- ko if: (address().customAttributes.type.value)-->
+<!-- ko text: getType(address().customAttributes.type.value) --><!-- /ko -->
+<!-- /ko -->
+<!-- ko if: (address().customAttributes.type)-->
+<!-- ko text: getType(address().customAttributes.type) --><!-- /ko -->
+<!-- /ko -->
+<br/>
 <!-- /ko -->

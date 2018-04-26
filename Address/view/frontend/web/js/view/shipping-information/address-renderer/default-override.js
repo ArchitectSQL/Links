@@ -1,7 +1,7 @@
 define([
     'jquery',
     'uiComponent',
-    'Magento_Customer/js/customer-data'
+    'Magento_Customer/js/customer-data',
 ], function ($, Component, customerData) {
     'use strict';
 
@@ -11,13 +11,12 @@ define([
         defaults: {
             template: 'Web4pro_Address/shipping-information/address-renderer/default'
         },
-        
+
         /**
          * @param {String} typeAddressId
          * @return {String}
          */
         getType:function(typeAddressId){
-            debugger;
             var val;
             $.each(window.checkoutConfig.type, function(index, value ) {
                 if (index == typeAddressId){

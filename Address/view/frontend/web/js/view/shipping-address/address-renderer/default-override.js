@@ -51,7 +51,7 @@ define([
             selectShippingAddressAction(this.address());
             checkoutData.setSelectedShippingAddress(this.address().getKey());
         },
-        
+
         /**
          * @param {String} typeAddressId
          * @return {String}

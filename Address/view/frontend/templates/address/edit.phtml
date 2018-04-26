@@ -133,7 +133,7 @@
                 <select id="type_address_id" name="type"
                         title="<?= $block->escapeHtmlAttr(__('Type Address')) ?>">
                     <?php foreach ($block->getAddressType() as $key => $value){ ?>
-                        <?php if ($value == 1): ?>
+                        <?php if ($value == $block->getType()): ?>
                             <option value="<?= $value ?>" selected><?= $block->escapeHtml(__($key)) ?></option>
                         <?php else: ?>
                             <option value="<?= $value ?>"><?= $block->escapeHtml(__($key)) ?></option>

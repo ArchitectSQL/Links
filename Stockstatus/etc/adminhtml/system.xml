@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * WEB4PRO - Creating profitable online stores
+ *
+ * @author    vyurchenko@corp.web4pro.com.ua
+ * @category  WEB4PRO
+ * @package   Web4pro_Stockstatus
+ * @copyright Copyright (c) 2017 WEB4PRO (http://www.web4pro.net)
+ * @license   http://www.web4pro.net/license.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="web4pro" translate="label" sortOrder="410">
+            <label>WEB4PRO</label>
+        </tab>
+        <section id="web4pro_stockstatus" translate="label" type="text" sortOrder="1001" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Custom Stock Status</label>
+            <tab>web4pro</tab>
+            <resource>Web4pro_Stockstatus::config_stockstatus</resource>
+            <group id="general" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Options</label>
+                <field id="display_at_category" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display Custom Stock Status On Product List Page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="display_at_product_page" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display Custom Stock Status On Product View Page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="display_in_cart" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display Custom Stock Status in Shopping Cart</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Will display custom stock status for items in shopping cart.</comment>
+                </field>
+                <field id="outofstock" translate="label" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Stock Status When Out Of Stock</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Do you want to show custom stock status instead of 'Out of stock' when product is not in stock?</comment>
+                </field>
+                <field id="outofstocktext" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Text Status When Out Of Stock</label>
+                    <comment>Add custom text for product is not in stock...</comment>
+                    <depends>
+                        <field id="outofstock">1</field>
+                    </depends>
+                </field>
+                <field id="showstocklevel" translate="label" type="select" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Stock Level?</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Show the actual quantity in stock (only for simple product type)</comment>
+                </field>
+                <field id="showimage" translate="label" type="select" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Icons?</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Show icon for stock status?</comment>
+                </field>
+                <field id="showimageonly" translate="label" type="select" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Only Icons?</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Show only icon for stock status?</comment>
+                    <depends>
+                        <field id="showimage">1</field>
+                    </depends>
+                </field>
+                <field id="stockstatus" translate="label" type="select" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Custom stock status for all products?</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Show Custom text for stock status for all products?</comment>
+                </field>
+                <field id="stockstatustext" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Text stock status for all products?</label>
+                    <comment>Add text stock status for all products?</comment>
+                    <depends>
+                        <field id="stockstatus">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

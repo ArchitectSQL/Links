@@ -1,0 +1,20 @@
+/**
+ * WEB4PRO - Creating profitable online stores
+ *
+ * @author    vyurchenko@corp.web4pro.com.ua
+ * @category  WEB4PRO
+ * @package   Web4pro_Stockstatus
+ * @copyright Copyright (c) 2017 WEB4PRO (http://www.web4pro.net)
+ * @license   http://www.web4pro.net/license.txt
+*/
+
+.image-stockstatus{
+  max-width: 20px;
+}
+.stock.available span{
+  color: #008000;
+}
+
+.stock.unavailable span{
+  color: #ff0000;
+}

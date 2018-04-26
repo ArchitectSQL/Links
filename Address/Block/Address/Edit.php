@@ -9,9 +9,7 @@ use Magento\Framework\App\ObjectManager;
 class Edit extends \Magento\Customer\Block\Address\Edit
 {
     protected $_typeAddress;
-
     private $attributeChecker;
-
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Directory\Helper\Data $directoryHelper,
@@ -45,17 +43,18 @@ class Edit extends \Magento\Customer\Block\Address\Edit
         $this->attributeChecker = $attributeChecker ?: ObjectManager::getInstance()->get(AttributeChecker::class);
         $this->_typeAddress = $type;
     }
-
     public function getAddressType()
     {
         return $this->_typeAddress->getAttributeArray();
     }
-
     public function getType()
     {
         $addressId = $this->getRequest()->getParam('id');
-        $this->_address = $this->_addressRepository->getById($addressId);
-        $typeValue = $this->_address->getCustomAttribute('type')->getValue();
-        return $typeValue;
+        if ($addressId){
+            $this->_address = $this->_addressRepository->getById($addressId);
+            $typeValue = $this->_address->getCustomAttribute('type')->getValue();
+            return $typeValue;
+        }
+        return false;
     }
 }

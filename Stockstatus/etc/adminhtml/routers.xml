@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * WEB4PRO - Creating profitable online stores
+ *
+ * @author    vyurchenko@corp.web4pro.com.ua
+ * @category  WEB4PRO
+ * @package   Web4pro_Stockstatus
+ * @copyright Copyright (c) 2017 WEB4PRO (http://www.web4pro.net)
+ * @license   http://www.web4pro.net/license.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="admin">
+        <route id="web4prostockstatus" frontName="web4prostockstatus">
+            <module name="Web4pro_Stockstatus" />
+        </route>
+    </router>
+</config>

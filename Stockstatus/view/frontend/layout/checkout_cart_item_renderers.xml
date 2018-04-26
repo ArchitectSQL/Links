@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * WEB4PRO - Creating profitable online stores
+ *
+ * @author    vyurchenko@corp.web4pro.com.ua
+ * @category  WEB4PRO
+ * @package   Web4pro_Stockstatus
+ * @copyright Copyright (c) 2017 WEB4PRO (http://www.web4pro.net)
+ * @license   http://www.web4pro.net/license.txt
+*/
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Web4pro_Stockstatus::css/source/web4pro_stockstatus.css" />
+    </head>
+    <body>
+        <referenceBlock name="checkout.cart.form">
+            <action ifconfig="web4pro_stockstatus/general/display_in_cart" method="setOverriddenTemplates">
+                <argument name="checkout.cart.form.arguments" xsi:type="array">
+                    <item name="default" xsi:type="string">Web4pro_Stockstatus::cart/item/default.phtml</item>
+                    <item name="simple" xsi:type="string">Web4pro_Stockstatus::cart/item/default.phtml</item>
+                    <item name="virtual" xsi:type="string">Web4pro_Stockstatus::cart/item/default.phtml</item>
+                    <item name="bundle" xsi:type="string">Web4pro_Stockstatus::cart/item/default.phtml</item>
+                    <item name="downloadable" xsi:type="string">Web4pro_Stockstatus::cart/item/default.phtml</item>
+                    <item name="configurable" xsi:type="string">Web4pro_Stockstatus::cart/item/default.phtml</item>
+                    <item name="grouped" xsi:type="string">Web4pro_Stockstatus::cart/item/default.phtml</item>
+                </argument>
+            </action>
+        </referenceBlock>
+    </body>
+</page>

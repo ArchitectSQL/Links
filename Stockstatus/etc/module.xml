@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * WEB4PRO - Creating profitable online stores
+ *
+ * @author    vyurchenko@corp.web4pro.com.ua
+ * @category  WEB4PRO
+ * @package   Web4pro_Stockstatus
+ * @copyright Copyright (c) 2017 WEB4PRO (http://www.web4pro.net)
+ * @license   http://www.web4pro.net/license.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Web4pro_Stockstatus" schema_version="0.1.0" setup_version="1.1.0">
+        <depends>
+            <module name="Magento_Catalog"/>
+        </depends>
+    </module>
+</config>

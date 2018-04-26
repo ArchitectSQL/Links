@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * WEB4PRO - Creating profitable online stores
+ *
+ * @author    vyurchenko@corp.web4pro.com.ua
+ * @category  WEB4PRO
+ * @package   Web4pro_Stockstatus
+ * @copyright Copyright (c) 2017 WEB4PRO (http://www.web4pro.net)
+ * @license   http://www.web4pro.net/license.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Eav\Block\Adminhtml\Attribute\Edit\Options\Options" type="Web4pro\Stockstatus\Block\Adminhtml\Catalog\Product\Attribute\Options" />
+    <preference for="Magento\Catalog\Model\ResourceModel\Attribute"              type="Web4pro\Stockstatus\Model\ResourceModel\Entity\Attribute" />
+
+    <type name="Magento\Cms\Block\Adminhtml\Wysiwyg\Images\Content">
+        <plugin
+                name="web4pro_stockstatus"
+                type="Web4pro\Stockstatus\Plugin\Block\Adminhtml\Wysiwyg\Images\Content"
+                sortOrder="100"
+                disabled="false"/>
+    </type>
+    <type name="Magento\Catalog\Block\Adminhtml\Product\Attribute\Edit">
+        <plugin
+                name="web4pro_stockstatus_validate"
+                type="Web4pro\Stockstatus\Plugin\Catalog\Block\Adminhtml\Product\Attribute\Edit"
+                sortOrder="100"
+                disabled="false"/>
+    </type>
+
+    <type name="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option">
+        <plugin
+                name="web4pro_stockstatus_bundle_status"
+                type="Web4pro\Stockstatus\Plugin\Bundle\Block\Catalog\Product\View\Type\Bundle\Option"
+                sortOrder="20"
+                disabled="false"/>
+    </type>
+    <type name="Magento\ConfigurableProduct\Block\Product\View\Type\Configurable">
+        <plugin
+                name="web4pro_stockstatus_configurableproduct_status_jsonconfig"
+                type="Web4pro\Stockstatus\Plugin\Block\Product\View\Type\Configurable"
+                sortOrder="20"
+                disabled="false"/>
+    </type>
+</config>
