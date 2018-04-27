@@ -1,0 +1,14 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?= /* @escapeNotVerified */ $block->getMiscellaneousHtml();
+$currentCategory = $block->getCurrentCategory();?>
+<?php if($block->existsCategory()): ?>
+<div class="image-custom-footer">
+    <img src="<?= /* @escapeNotVerified */$block->getCurrentCategory()?>" alt="image-footer">
+</div>
+<?php endif; ?>
+

@@ -1,12 +1,6 @@
 <?php
-/**
- * Copyright © 2015 Ihor Vansach (ihor@magefan.com). All rights reserved.
- * See LICENSE.txt for license details (http://opensource.org/licenses/osl-3.0.php).
- *
- * Glory to Ukraine! Glory to the heroes!
- */
 
-namespace Web4pro\UserLogin\Setup;
+namespace Web4pro\LoginAsCustomer\Setup;
 
 use Magento\Framework\Setup\InstallSchemaInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
@@ -29,7 +23,7 @@ class InstallSchema implements InstallSchemaInterface
         $installer->startSetup();
 
         /**
-         * Create table 'magefan_login_as_customer'
+         * Create table 'web4pro_login_as_customer'
          */
         $table = $installer->getConnection()->newTable(
             $installer->getTable('web4pro_login_as_customer')
@@ -73,12 +67,12 @@ class InstallSchema implements InstallSchemaInterface
             $installer->getIdxName('web4pro_login_as_customer', ['customer_id']),
             ['customer_id']
         )
-            ->addIndex(
-                $installer->getIdxName('web4pro_login_as_customer', ['admin_id']),
-                ['admin_id']
-            )->setComment(
-                'Magefan Login As Customer Table'
-            );
+        ->addIndex(
+            $installer->getIdxName('web4pro_login_as_customer', ['admin_id']),
+            ['admin_id']
+        )->setComment(
+            'Web4pro Login As Customer Table'
+        );
         $installer->getConnection()->createTable($table);
 
         $installer->endSetup();

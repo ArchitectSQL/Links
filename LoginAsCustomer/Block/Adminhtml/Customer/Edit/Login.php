@@ -1,6 +1,6 @@
 <?php
 
-namespace Web4pro\UserLogin\Block\Adminhtml\Customer\Edit;
+namespace Web4pro\LoginAsCustomer\Block\Adminhtml\Customer\Edit;
 
 use Magento\Customer\Block\Adminhtml\Edit\GenericButton;
 use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
@@ -37,7 +37,7 @@ class Login extends GenericButton implements ButtonProviderInterface
     {
         $customerId = $this->getCustomerId();
         $data = [];
-        $canModify = $customerId && $this->_authorization->isAllowed('Web4pro_UserLogin::login_button');
+        $canModify = $customerId && $this->_authorization->isAllowed('Web4pro_LoginAsCustomer::login_button');
         if ($canModify) {
             $data = [
                 'label' => __('Login As Customer'),
@@ -55,6 +55,6 @@ class Login extends GenericButton implements ButtonProviderInterface
      */
     public function getInvalidateTokenUrl()
     {
-        return $this->getUrl('userlogin/login/login', ['customer_id' => $this->getCustomerId()]);
+        return $this->getUrl('loginascustomer/login/login', ['customer_id' => $this->getCustomerId()]);
     }
 }

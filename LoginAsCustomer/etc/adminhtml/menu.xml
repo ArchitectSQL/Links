@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Web4pro_LoginAsCustomer::login_log" title="Login As Customer Log" module="Web4pro_LoginAsCustomer" parent="Magento_Customer::customer" sortOrder="40"  resource="Web4pro_LoginAsCustomer::login_log" action="loginascustomer/login/" />
+    </menu>
+</config>
