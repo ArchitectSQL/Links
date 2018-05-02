@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="web4proHidePrice" translate="label" sortOrder="10">
+            <label>Web4pro Hide Price</label>
+        </tab>
+        <section id="catalog">
+            <class>separator-top</class>
+            <label>Don't show price </label>
+            <tab>web4proHidePrice</tab>
+            <resource>Web4pro_DontShowPrice::dontshowprice_config</resource>
+            <group id="available" translate="label" type="text" sortOrder="991" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Don't show product price</label>
+                <field id="hide_price" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Hide price</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
