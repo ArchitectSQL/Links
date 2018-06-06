@@ -1,12 +1,12 @@
 <?php
 
-namespace Web4pro\DontShowPrice\Observer;
+namespace Web4pro\DontShowPrice\Observer\Product;
 
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Customer\Model\Session as CustomerSession;
 
-class AddHandles implements ObserverInterface
+class HidePriceOnProduct implements ObserverInterface
 {
     protected $customerSession;
 
@@ -21,16 +21,12 @@ class AddHandles implements ObserverInterface
 
     public function execute(Observer $observer)
     {
-        //$layout = $observer->getEvent()->getLayout();
-        $collection = $observer->getEvent()->getCollection();
+        
         $isEnableDontShowPrice = $this->scopeConfig->getValue('catalog/available/hide_price',\Magento\Store\Model\ScopeInterface::SCOPE_STORE);
         if (!$this->customerSession->isLoggedIn() && $isEnableDontShowPrice)
         {
-            /*$layout->getUpdate()->addHandle('customer_logged_out');
-            $layout->getUpdate()->addHandle('cutegory_customer_logged_out');*/
-            foreach ($collection as $product) {
-                $product->setCanShowPrice(false);
-            }
+            $product = $observer->getEvent()->getProduct();
+            $product->setCanShowPrice(false);
         }
     }
 }

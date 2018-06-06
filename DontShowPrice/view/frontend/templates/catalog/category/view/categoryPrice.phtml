@@ -1,11 +1,6 @@
 <?php
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
-use Magento\Framework\App\Action\Action;
 
-// @codingStandardsIgnoreFile
+use Magento\Framework\App\Action\Action;
 
 ?>
 <?php
@@ -70,18 +65,41 @@ $_helper = $this->helper('Magento\Catalog\Helper\Output');
                             </a>
                         </strong>
                         <?= $block->getReviewsSummaryHtml($_product, $templateType) ?>
-                        <?= /* @escapeNotVerified */ $block->getProductPrice($_product) ?>
+
                         <?= $block->getProductDetailsHtml($_product) ?>
 
-                        <?php $_product = $block->getProduct(); ?>
-                        <?php if ($_product->isSaleable()): ?>
+                        <div class="product-item-inner">
+                            <p>Please
+                                <a href="<?= $block->getUrl('customer/account/login') ?>"
+                                   title="<?= __('Login') ?>">
+                                    <?= __('Login') ?>
+                                </a> or
+                                <a href="<?= $block->getUrl('customer/account/create') ?>"
+                                   title="<?= "Register" ?>"><?= "Register" ?>
+                                </a>
+                            </p>
+                            <div class="product actions product-item-actions"<?= strpos($pos, $viewMode . '-actions') ? $position : '' ?>>
+                                <div class="actions-primary"<?= strpos($pos, $viewMode . '-primary') ? $position : '' ?>>
+                                    <?php if ($_product->isSaleable()): ?>
 
-                            <div class="box-tocart">
-                                <p>Please <a href="<?php echo $block->getUrl('customer/account/login') ?>" title="<?php echo __('Login') ?>"><?php echo __('Login') ?></a> or <a href="<?php echo $block->getUrl('customer/account/create') ?>" title="<?php echo "Register" ?>"><?php echo "Register" ?></a> to buy this product!</p>
+                                    <?php else: ?>
+                                        <?php if ($_product->isAvailable()): ?>
+                                            <div class="stock available"><span><?= /* @escapeNotVerified */ __('In stock') ?></span></div>
+                                        <?php else: ?>
+                                            <div class="stock unavailable"><span><?= /* @escapeNotVerified */ __('Out of stock') ?></span></div>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                </div>
+
                             </div>
-
-                        <?php endif; ?>
-                        
+                            <?php if ($showDescription):?>
+                                <div class="product description product-item-description">
+                                    <?= /* @escapeNotVerified */ $_helper->productAttribute($_product, $_product->getShortDescription(), 'short_description') ?>
+                                    <a href="<?= /* @escapeNotVerified */ $_product->getProductUrl() ?>" title="<?= /* @escapeNotVerified */ $_productNameStripped ?>"
+                                       class="action more"><?= /* @escapeNotVerified */ __('Learn More') ?></a>
+                                </div>
+                            <?php endif; ?>
+                        </div>
                     </div>
                 </div>
                 <?= ($iterator == count($_productCollection)+1) ? '</li>' : '' ?>
@@ -89,15 +107,4 @@ $_helper = $this->helper('Magento\Catalog\Helper\Output');
         </ol>
     </div>
     <?= $block->getToolbarHtml() ?>
-    <?php if (!$block->isRedirectToCartEnabled()) : ?>
-        <script type="text/x-magento-init">
-        {
-            "[data-role=tocart-form], .form.map.checkout": {
-                "catalogAddToCart": {
-                    "product_sku": "<?= /* @NoEscape */ $_product->getSku() ?>"
-                }
-            }
-        }
-        </script>
-    <?php endif; ?>
 <?php endif; ?>

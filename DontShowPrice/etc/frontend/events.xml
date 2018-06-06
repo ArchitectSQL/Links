@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
-<event name="layout_load_before">
+<event name="catalog_product_collection_load_after">
     <observer name="add_layout_handles" instance="Web4pro\DontShowPrice\Observer\AddHandles" />
+</event>
+<event name="catalog_product_load_after">
+    <observer name="add_layout_handles1" instance="Web4pro\DontShowPrice\Observer\Product\HidePriceOnProduct" />
 </event>
 </config>

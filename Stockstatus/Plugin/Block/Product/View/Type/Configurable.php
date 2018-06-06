@@ -67,6 +67,11 @@ class Configurable
                 }
                 $price = number_format($thisProduct['price'], 2, '.', '');
                 $stockStatus = $this->_help->getNewStockStatusOptions($thisProduct);
+                
+                if ($stockStatus === false)
+                {
+                    $stockStatus = 'In Stock';
+                }
                 $labelOld = $option['label'];
                 $newStatus = $labelOld.'  ('.$stockStatus.')   +$'.$price;
                 $option['label'] = $newStatus;

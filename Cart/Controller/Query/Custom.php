@@ -85,17 +85,12 @@ class Custom extends \Magento\Framework\App\Action\Action
         $session = $this->_checkoutSession;
         $address = $session->getQuote()->getShippingAddress();
 
-        $shippingTax = $this->_shipping->collectRatesByAddress($address)->getResult();
-        $shippingPrice = $shippingTax->_rates[0]->getPrice();
-        //$orderTotal = $grandTotal + $shippingPrice;
 
         $data = [
                     'priceTotal'        => sprintf("%.2f" , $priceTotal),
-                    //'grandTotal'        => sprintf("%.2f" , $grandTotal),
                     'summaryQtyProducts'=> $summaryQtyProducts,
                     'itemIdMinicart'    => $itemIdMinicart,
-                    //'shippingPrice'     => sprintf("%.2f" , $shippingPrice)
-                    //'orderTotal'        => sprintf("%.2f" , $orderTotal)
+
                 ];
 
         $resultJson = $this->resultJsonFactory->create(ResultFactory::TYPE_JSON);

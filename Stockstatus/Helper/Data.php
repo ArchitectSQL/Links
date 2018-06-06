@@ -131,7 +131,12 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         switch(true)
         {
             case ($this->isShowStockLevel() && $qty && in_array($product->getTypeID(), $this->getProductTypesForCount())):
-                $levelStockStatus = (int)$qty . __(' in stock');
+                if($this->isDefaultStockStatusHidden($product)) 
+                {
+                    $levelStockStatus = (int)$qty;
+                } else {
+                    $levelStockStatus = (int)$qty . __(' In Stock');
+                }
                 return $this->getStringHtml($product, $levelStockStatus);
 
             case ($this->isDefaultStockStatusHidden($product) && $this->_customStockStatus):
@@ -249,7 +254,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                 if($this->isStockStatusForAllProducts() && $this->isStockStatusForAllProductsText()) {
                     return __($this->isStockStatusForAllProductsText());
                 }else{
-                    return __('In stock');
+                    return __('In Stock');
                 }
 
             case($this->_typeProduct):
@@ -276,10 +281,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         {
             $customStockStatus = $product->getAttributeText('custom_stockstatus');
 
-            if ($customStockStatus === false)
-            {
-                $customStockStatus = 'In Stock';
-            }
         }
         if ($product->getQuantityAndStockStatus('is_in_stock') === false)
         {
